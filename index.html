@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pierre Koenig · Founders Associate · Dust</title>
+<meta name="description" content="An interactive application for the Founders Associate role at Dust. Test me like you'd test an agent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf9f5; --card:#ffffff; --ink:#16130e; --dim:#6f6a5e; --line:#e6e2d8;
+  --green:#0d5c3f; --green-soft:#e8f1ec; --amber:#b7791f; --chip:#f1efe8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Geist',sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px}
+.mono{font-family:'Geist Mono',monospace}
+
+/* Hero */
+.hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--green);background:var(--green-soft);padding:6px 14px;border-radius:999px;margin-bottom:28px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-family:'Newsreader',serif;font-weight:500;font-size:52px;line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--green)}
+.lede{font-size:19px;color:var(--dim);max-width:620px;margin-bottom:32px}
+.lede strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+
+/* Sections */
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+h2{font-family:'Newsreader',serif;font-weight:500;font-size:32px;letter-spacing:-.01em;margin-bottom:10px}
+.secsub{color:var(--dim);max-width:640px;margin-bottom:28px}
+
+/* Chat */
+.chat{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(22,19,14,.05)}
+.chat-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);background:#fcfbf8}
+.chat-head .av{width:30px;height:30px;border-radius:8px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.chat-head .nm{font-weight:600;font-size:14px}
+.chat-head .st{font-family:'Geist Mono',monospace;font-size:11px;color:var(--green)}
+.chat-body{padding:20px;min-height:180px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:86%;padding:12px 16px;border-radius:12px;font-size:15px;line-height:1.55;white-space:pre-line}
+.msg.q{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
+.msg.a{align-self:flex-start;background:var(--chip);border-bottom-left-radius:4px}
+.msg.a a{color:var(--green);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 20px;border-top:1px solid var(--line);background:#fcfbf8}
+.chip{font-family:'Geist Mono',monospace;font-size:12.5px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);cursor:pointer;transition:all .12s;color:var(--ink)}
+.chip:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+.chip.used{opacity:.4}
+.cursor{display:inline-block;width:8px;height:16px;background:var(--green);vertical-align:-2px;animation:pulse 1s infinite}
+
+/* Proof cards */
+.proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proof{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}
+.proof .k{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px}
+.proof h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;margin-bottom:8px}
+.proof p{font-size:14px;color:var(--dim)}
+.proof a{color:var(--green);font-weight:600;font-size:14px;text-decoration:none}
+.proof a:hover{text-decoration:underline}
+
+/* 30/60/90 */
+.plan{display:flex;flex-direction:column;gap:0}
+.phase{display:grid;grid-template-columns:130px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:none}
+.phase .d{font-family:'Geist Mono',monospace;font-size:13px;color:var(--green);font-weight:500;padding-top:4px}
+.phase h3{font-family:'Newsreader',serif;font-weight:500;font-size:22px;margin-bottom:8px}
+.phase ul{list-style:none}
+.phase li{padding:5px 0 5px 22px;position:relative;color:var(--dim);font-size:15px}
+.phase li::before{content:"→";position:absolute;left:0;color:var(--amber)}
+.phase li strong{color:var(--ink);font-weight:600}
+
+/* Terms */
+.terms{background:var(--green-soft);border:1px solid #cfe0d6;border-radius:14px;padding:32px}
+.terms h3{font-family:'Newsreader',serif;font-weight:500;font-size:24px;margin-bottom:12px}
+.terms p{color:#33513f;max-width:640px}
+.terms .big{font-size:18px;color:var(--ink);font-weight:500;font-family:'Newsreader',serif;font-style:italic;margin-top:14px}
+
+footer{padding:48px 0 72px;text-align:left}
+footer .sig{font-family:'Newsreader',serif;font-style:italic;font-size:22px;margin-bottom:10px}
+footer .links{font-family:'Geist Mono',monospace;font-size:13px;color:var(--dim)}
+footer a{color:var(--green);text-decoration:none}
+
+@media(max-width:760px){
+  h1{font-size:36px}.proofs{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr;gap:6px}.hero{padding:56px 0 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span>agent status: available — Paris, in-person, effective immediately</div>
+  <h1>You deploy agents.<br><em>Deploy me.</em></h1>
+  <p class="lede">I'm <strong>Pierre Koenig</strong> — founder of a vertical AI company built on agents, applying for the <strong>Founders Associate</strong> role. This page works like a Dust agent: ask it the questions you'd ask in a first interview. It answers honestly, including about the gaps.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#chat">Interview @pierre ↓</a>
+    <a class="btn btn-ghost" href="#plan">Skip to my first 90 days</a>
+  </div>
+</div>
+
+<section id="chat">
+  <div class="eyebrow">01 · The agent</div>
+  <h2>@pierre — interview me</h2>
+  <p class="secsub">Scripted, not generative — every answer below was written by me, once, carefully. Which is roughly the standard I'd hold your investor updates to.</p>
+  <div class="chat">
+    <div class="chat-head">
+      <div class="av">P</div>
+      <div><div class="nm">@pierre</div></div>
+      <div style="flex:1"></div>
+      <div class="st">● online</div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg a">Bonjour 👋 — ask me anything below. I suggest starting with the hard one.</div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">02 · Evidence</div>
+  <h2>Shipped, not studied</h2>
+  <p class="secsub">The role asks for someone who can "operate independently from day one". Here is what operating independently has looked like so far.</p>
+  <div class="proofs">
+    <div class="proof">
+      <div class="k">Live product</div>
+      <h3>CORTX</h3>
+      <p>Vertical AI platform for French real-estate operators. I designed, built and sold it — the cockpit demo is public and navigable, no login.</p>
+      <p style="margin-top:10px"><a href="https://cortex-immobilier-cortx-team.vercel.app/demo">Open the live demo →</a></p>
+    </div>
+    <div class="proof">
+      <div class="k">Velocity</div>
+      <h3>10 products, 19 days</h3>
+      <p>In April 2026, shipped ten AI products across nine industries in nineteen days for French SMB clients — scoping, build, deployment, delivery.</p>
+    </div>
+    <div class="proof">
+      <div class="k">Operating experience</div>
+      <h3>Founder-side ops</h3>
+      <p>Co-founded a real-estate holding at 20 (shareholder agreement, acquisitions). Worked at Aguesseau Capital (Jonathan Anguelov, €100M+ AUM). ESSEC Business School.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="eyebrow">03 · The plan</div>
+  <h2>My first 90 days, mapped to your actual job description</h2>
+  <p class="secsub">The posting says it plainly: own the operating rhythm — investor updates, board prep, teamOS — and make sure nothing falls through the cracks while the Chief of Staff is away. Here's how I'd attack that.</p>
+  <div class="plan">
+    <div class="phase">
+      <div class="d">Days 1–30</div>
+      <div>
+        <h3>Own the rhythm</h3>
+        <ul>
+          <li>Take the <strong>monthly investor update</strong> end-to-end: gather inputs, draft, ship on time, every time.</li>
+          <li>Build the <strong>board pack pipeline</strong> — templates, data sources, owners, deadlines — so prep becomes a process, not a scramble.</li>
+          <li>Map how decisions actually flow across the team. Quietly. That map is the job.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d">Days 31–60</div>
+      <div>
+        <h3>Cover the gap</h3>
+        <ul>
+          <li>Full <strong>Chief of Staff coverage</strong>: exec-level projects run to done, cross-functional follow-through, zero dropped threads.</li>
+          <li>Become the reliable interface between Gabriel, the leadership team and the rest of the org.</li>
+          <li>Weekly one-pager to the founders: what moved, what's stuck, what needs a decision.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d">Days 61–90</div>
+      <div>
+        <h3>Automate my own job — with Dust</h3>
+        <ul>
+          <li>Build <strong>Dust agents for the founders' office</strong>: investor-update drafting, board-pack assembly, competitive briefs. Dogfooding as an operating principle.</li>
+          <li>Document the whole operating rhythm so it survives me — the opposite of making myself indispensable through opacity.</li>
+          <li>Leave you with a founders' office that runs on your own product. That's the story I'd want your customers to hear, too.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">04 · Terms</div>
+  <div class="terms">
+    <h3>The format is your call</h3>
+    <p>Internship, fixed-term mission, consulting — whichever structure works for Dust. I'm building my own company on the side, so I'm not optimizing for a salary line or a title: I'm optimizing for responsibility and for learning how a Sequoia-backed company is actually run, from the inside, at the founders' desk. On compensation I'm open to anything, including models indexed on results.</p>
+    <p class="big">I'm not applying to be an intern. I'm applying to be useful.</p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">05 · Next step</div>
+  <h2>Still not convinced? Give me 15 minutes.</h2>
+  <p class="secsub">A page can only do so much. Fifteen minutes — in person at your office or on a call — and I'll show you exactly what I'd take off Gabriel's plate in week one. If it's a no after that, you'll have lost a quarter of an hour and gained a benchmark.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:pierre@cortx.fr?subject=15%20minutes%20%E2%80%94%20Pierre%20Koenig%20(Founders%20Associate)&body=Hi%20Pierre%2C%0A%0AHere%20are%20a%20few%20slots%20that%20work%20on%20our%20side%3A%0A%0A">Book 15 minutes →</a>
+    <a class="btn btn-ghost" href="cv-pierre-koenig.pdf" download>Download the classic CV (PDF)</a>
+  </div>
+</section>
+
+<footer>
+  <div class="sig">— Pierre Koenig</div>
+  <div class="links">
+    <a href="mailto:pierre@cortx.fr">pierre@cortx.fr</a> · Paris · available immediately, 6+ months
+  </div>
+</footer>
+
+</div>
+
+<script>
+const QA = [
+  {
+    q: "Why should this not just be an intern?",
+    a: "Because the job description isn't an intern's job — it's Chief of Staff coverage: investor updates, board prep, exec-level projects. That needs someone who has sat on the founder side of those documents. I write investor-facing material for my own company. I know what a founder needs from this seat because I've needed it myself.\n\nTake me as an intern, a contractor, a consultant — the label doesn't matter. The scope does."
+  },
+  {
+    q: "Why Dust?",
+    a: "I build CORTX on agents — vertical, opinionated, deployed with real French companies. Dust made the opposite and harder bet: horizontal, company-wide, 'multiplayer'. 3,000+ organisations, 70% weekly active usage, zero churn in 2025. When Gabriel says the shift from following processes to managing probabilistic systems is one of the biggest skill shifts in decades — that's the exact shift I've been living for two years, from the builder's side.\n\nSix months inside the company defining that category, at the founders' desk, is the highest-leverage learning available in Europe right now."
+  },
+  {
+    q: "What have you actually shipped?",
+    a: "• CORTX — vertical AI platform for real-estate operators. Live public demo, no login: cockpit with 41 anonymised lots, deals, tax modules, invoicing.\n• 10 AI products across 9 industries in 19 days (April 2026) for French SMBs — scoped, built, deployed, delivered.\n• A real-estate holding co-founded at 20 — shareholder agreement, live acquisitions.\n\nScroll up for the links. Everything is verifiable, nothing is a mockup."
+  },
+  {
+    q: "Where have you worked before?",
+    a: "Aguesseau Capital — Jonathan Anguelov's real-estate investment fund (€100M+ AUM) — where I learned how deal-driven founders operate day to day. Before that, sales and ops roles alongside founders in French real estate and hospitality. ESSEC Business School, entrepreneurship track.\n\nAnd for the last 18 months: my own company, which is the most honest reference I have. Ask me anything about it in the interview."
+  },
+  {
+    q: "What are your terms?",
+    a: "Flexible on everything except responsibility.\n\nInternship, mission, consulting — your call. I run my own company on the side, so long hours are my baseline, not a sacrifice. On compensation I'm open to any model, including one indexed on results. What I'm buying with these six months is the inside view of a Sequoia-backed founders' office — that's the compensation."
+  },
+  {
+    q: "Give me one number.",
+    a: "Pick your favorite:\n\n• 19 — days to ship 10 AI products across 9 industries (April 2026).\n• €220,000 — the student-union budget I managed as treasurer at ESSEC (events for 500–2,000 people).\n• 41 — anonymised real-estate lots live in the CORTX demo you can click through right now.\n• 0 — PowerPoint slides in this application."
+  },
+  {
+    q: "How fast can you start?",
+    a: "This week. I'm in Paris, no notice period, no relocation.\n\nThe posting opened in April for a July start — so if the seat is still open, timing is my single biggest edge over any September candidate. And if it's already filled: keep this page. The next gap in the founders' office, I'm the fastest fix you'll have on file."
+  },
+  {
+    q: "What's the catch?",
+    a: "Honest answer: I'm a BBA student, not an MBA — the posting asks for a Master's. And I'm younger than the typical profile.\n\nWhat I'd offer against that: a shipped product you can click through today, founder-side operating experience most MBA candidates describe from case studies, and availability now — not in September. If the gap matters, the cofounder chat is the cheapest way to find out. 30 minutes."
+  }
+];
+
+const chips = document.getElementById('chips');
+const body = document.getElementById('chatBody');
+
+QA.forEach((item, i) => {
+  const c = document.createElement('button');
+  c.className = 'chip';
+  c.textContent = item.q;
+  c.onclick = () => ask(item, c);
+  chips.appendChild(c);
+});
+
+function ask(item, chipEl) {
+  if (chipEl.classList.contains('used')) return;
+  chipEl.classList.add('used');
+  const q = document.createElement('div');
+  q.className = 'msg q';
+  q.textContent = item.q;
+  body.appendChild(q);
+  const a = document.createElement('div');
+  a.className = 'msg a';
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  a.appendChild(cur);
+  body.appendChild(a);
+  body.scrollTop = body.scrollHeight;
+  let i = 0;
+  const text = item.a;
+  const t = setInterval(() => {
+    i += 3;
+    a.textContent = text.slice(0, i);
+    a.appendChild(cur);
+    body.scrollTop = body.scrollHeight;
+    if (i >= text.length) {
+      clearInterval(t);
+      cur.remove();
+    }
+  }, 12);
+}
+</script>
+
+</body>
+</html>

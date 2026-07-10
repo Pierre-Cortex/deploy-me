@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pierre Koenig · Founder's Associate · Bravi</title>
+<meta name="description" content="An interactive application for the Founder's Associate role at Bravi — from someone who is literally your buyer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbf8f4; --card:#ffffff; --ink:#191410; --dim:#75695e; --line:#eae2d7;
+  --accent:#c2410c; --accent-soft:#faeade; --amber:#92620a; --chip:#f4ede4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Geist',sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px}
+.langbar{position:fixed;top:18px;right:22px;z-index:50;display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 10px rgba(25,20,16,.06)}
+.langbar button{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;padding:5px 13px;border:none;border-radius:999px;background:transparent;color:var(--dim);cursor:pointer}
+.langbar button.on{background:var(--ink);color:#fff}
+body[data-lang="en"] .i-fr{display:none!important}
+body[data-lang="fr"] .i-en{display:none!important}
+.hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:6px 14px;border-radius:999px;margin-bottom:28px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-family:'Newsreader',serif;font-weight:500;font-size:48px;line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:19px;color:var(--dim);max-width:660px;margin-bottom:32px}
+.lede strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+h2{font-family:'Newsreader',serif;font-weight:500;font-size:32px;letter-spacing:-.01em;margin-bottom:10px}
+.secsub{color:var(--dim);max-width:660px;margin-bottom:28px}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(25,20,16,.05)}
+.chat-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);background:#f8f4ee}
+.chat-head .av{width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.chat-head .nm{font-weight:600;font-size:14px}
+.chat-head .st{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent)}
+.chat-body{padding:20px;min-height:180px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:86%;padding:12px 16px;border-radius:12px;font-size:15px;line-height:1.55;white-space:pre-line}
+.msg.q{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.msg.a{align-self:flex-start;background:var(--chip);border-bottom-left-radius:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 20px;border-top:1px solid var(--line);background:#f8f4ee}
+.chip{font-family:'Geist Mono',monospace;font-size:12.5px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);cursor:pointer;transition:all .12s;color:var(--ink)}
+.chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chip.used{opacity:.4}
+.cursor{display:inline-block;width:8px;height:16px;background:var(--accent);vertical-align:-2px;animation:pulse 1s infinite}
+.proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proof{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}
+.proof .k{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px}
+.proof h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;margin-bottom:8px}
+.proof p{font-size:14px;color:var(--dim)}
+.proof a{color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}
+.proof a:hover{text-decoration:underline}
+.plan{display:flex;flex-direction:column;gap:0}
+.phase{display:grid;grid-template-columns:130px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:none}
+.phase .d{font-family:'Geist Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;padding-top:4px}
+.phase h3{font-family:'Newsreader',serif;font-weight:500;font-size:22px;margin-bottom:8px}
+.phase ul{list-style:none}
+.phase li{padding:5px 0 5px 22px;position:relative;color:var(--dim);font-size:15px}
+.phase li::before{content:"→";position:absolute;left:0;color:var(--amber)}
+.phase li strong{color:var(--ink);font-weight:600}
+.terms{background:var(--accent-soft);border:1px solid #efd3bc;border-radius:14px;padding:32px}
+.terms h3{font-family:'Newsreader',serif;font-weight:500;font-size:24px;margin-bottom:12px}
+.terms p{color:#7c4a2a;max-width:660px;margin-bottom:10px}
+.terms .big{font-size:18px;color:var(--ink);font-weight:500;font-family:'Newsreader',serif;font-style:italic;margin-top:8px}
+footer{padding:48px 0 72px}
+footer .sig{font-family:'Newsreader',serif;font-style:italic;font-size:22px;margin-bottom:10px}
+footer .links{font-family:'Geist Mono',monospace;font-size:13px;color:var(--dim)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:760px){h1{font-size:33px}.proofs{grid-template-columns:1fr}.phase{grid-template-columns:1fr;gap:6px}.hero{padding:56px 0 40px}.langbar{top:12px;right:12px}}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="langbar">
+  <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
+</div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span><span class="i-en">status: available — Paris now, New York when useful · September · 48h if urgent · ESSEC curriculum</span><span class="i-fr">statut : disponible — Paris maintenant, New York quand utile · septembre · 48 h si urgent · cursus ESSEC</span></div>
+  <h1><span class="i-en">I coordinate the pros you build for.<br><em>41 units' worth of them.</em></span><span class="i-fr">Je coordonne les artisans pour qui vous construisez.<br><em>À hauteur de 41 lots.</em></span></h1>
+  <p class="lede i-en">I'm <strong>Pierre Koenig</strong> — ESSEC, applying for your <strong>Founder's Associate (Paris / New York)</strong> role. I co-founded a 41-unit real-estate holding: HVAC, renovations, contractors, callbacks that never come — your product's world is my Tuesday. On the other side, I build AI agents in production and I've done founder-side ops for real companies. This page works like an agent: interview it.</p>
+  <p class="lede i-fr">Je suis <strong>Pierre Koenig</strong> — ESSEC, candidat à votre poste de <strong>Founder's Associate (Paris / New York)</strong>. J'ai cofondé une foncière de 41 lots : CVC, rénovations, artisans, rappels qui n'arrivent jamais — le monde de votre produit, c'est mon mardi. De l'autre côté, je construis des agents IA en production et j'ai fait des ops côté fondateur pour de vraies boîtes. Cette page fonctionne comme un agent : interviewez-la.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#chat"><span class="i-en">Interview @pierre ↓</span><span class="i-fr">Interviewer @pierre ↓</span></a>
+    <a class="btn btn-ghost" href="#plan"><span class="i-en">My first 90 days</span><span class="i-fr">Mes 90 premiers jours</span></a>
+  </div>
+</div>
+
+<section id="chat">
+  <div class="eyebrow"><span class="i-en">01 · The agent</span><span class="i-fr">01 · L'agent</span></div>
+  <h2><span class="i-en">@pierre — interview me</span><span class="i-fr">@pierre — interviewez-moi</span></h2>
+  <p class="secsub i-en">Scripted, not generative — written once, carefully. Start wherever you'd start in a real first call.</p>
+  <p class="secsub i-fr">Scripté, pas génératif — écrit une fois, avec soin. Commencez où vous commenceriez un vrai premier call.</p>
+  <div class="chat">
+    <div class="chat-head">
+      <div class="av">P</div>
+      <div><div class="nm">@pierre</div></div>
+      <div style="flex:1"></div>
+      <div class="st"><span class="i-en">● online</span><span class="i-fr">● en ligne</span></div>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow"><span class="i-en">02 · Evidence</span><span class="i-fr">02 · Preuves</span></div>
+  <h2><span class="i-en">Your buyer, your builder, your operator</span><span class="i-fr">Votre acheteur, votre builder, votre opérateur</span></h2>
+  <div class="proofs">
+    <div class="proof">
+      <div class="k"><span class="i-en">Your buyers' client</span><span class="i-fr">Le client de vos acheteurs</span></div>
+      <h3><span class="i-en">41 units, real contractors</span><span class="i-fr">41 lots, vrais artisans</span></h3>
+      <p class="i-en">Co-founded a real-estate holding at 20 — I hire and pay the HVAC, plumbing and renovation companies you build for, every week. I live the fragmentation Bravi fixes: quotes, scheduling, follow-ups, no-shows.</p>
+      <p class="i-fr">Foncière cofondée à 20 ans — j'embauche et je paie chaque semaine les entreprises de CVC, plomberie et rénovation pour qui vous construisez. Je vis la fragmentation que Bravi résout : devis, planning, relances, lapins.</p>
+    </div>
+    <div class="proof">
+      <div class="k"><span class="i-en">Your builder</span><span class="i-fr">Votre builder</span></div>
+      <h3>CORTX</h3>
+      <p class="i-en">Vertical AI platform for French real-estate operators — LLM agents in production, built with Claude. Public demo, no login.</p>
+      <p class="i-fr">Plateforme d'IA verticale pour opérateurs immobiliers — agents LLM en production, construite avec Claude. Démo publique, sans login.</p>
+      <p style="margin-top:10px"><a href="https://cortex-immobilier-cortx-team.vercel.app/demo"><span class="i-en">Open the demo →</span><span class="i-fr">Ouvrir la démo →</span></a></p>
+    </div>
+    <div class="proof">
+      <div class="k"><span class="i-en">Your operator</span><span class="i-fr">Votre opérateur</span></div>
+      <h3><span class="i-en">€900k in a month</span><span class="i-fr">900 k€ en un mois</span></h3>
+      <p class="i-en">Real estate sold at Aguesseau Capital (€100M+ AUM), above asking · investor relations + a fully coded GTM engine at Offstone · €600k budget as ESSEC student-union treasurer.</p>
+      <p class="i-fr">Vendus chez Aguesseau Capital (100 M€+), au-dessus du prix · relations investisseurs + moteur GTM codé chez Offstone · 600 k€ de budget comme trésorier du BDE ESSEC.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="eyebrow"><span class="i-en">03 · The plan</span><span class="i-fr">03 · Le plan</span></div>
+  <h2><span class="i-en">90 days: Paris traction, New York ready</span><span class="i-fr">90 jours : traction Paris, prêt pour New York</span></h2>
+  <p class="secsub i-en">You're two founders shipping product with pipelines in three cities. A Founder's Associate should return hours, then own ground. In that order.</p>
+  <p class="secsub i-fr">Vous êtes deux fondateurs qui shippent, avec des pipelines dans trois villes. Un Founder's Associate doit rendre des heures, puis tenir un territoire. Dans cet ordre.</p>
+  <div class="plan">
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 1–30</span><span class="i-fr">Jours 1–30</span></div>
+      <div>
+        <h3><span class="i-en">Return hours to the founders</span><span class="i-fr">Rendre des heures aux fondateurs</span></h3>
+        <ul class="i-en">
+          <li>Take the <strong>ops rhythm</strong>: follow-ups, onboarding logistics, investor-update inputs, nothing dropped.</li>
+          <li>Ride along on real installs and support calls — I speak contractor fluently, in French and in spreadsheets.</li>
+          <li>Feedback loop from the field to product, structured weekly.</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Prendre le <strong>rythme ops</strong> : relances, logistique d'onboarding, inputs des investor updates, rien ne tombe.</li>
+          <li>Aller sur les vraies installations et les calls support — je parle couramment artisan, en français et en tableur.</li>
+          <li>Boucle de feedback du terrain vers le produit, structurée chaque semaine.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 31–60</span><span class="i-fr">Jours 31–60</span></div>
+      <div>
+        <h3><span class="i-en">Own the France pipeline</span><span class="i-fr">Tenir le pipeline France</span></h3>
+        <ul class="i-en">
+          <li>Build the <strong>French home-services pipeline</strong>: HVAC, solar, shutters — I've hired these companies as a client; I know how they buy, what they distrust, and who decides.</li>
+          <li>Qualify, demo, close small — document every objection into a playbook.</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Construire le <strong>pipeline home services France</strong> : CVC, solaire, volets — j'ai embauché ces entreprises comme client ; je sais comment elles achètent, de quoi elles se méfient, et qui décide.</li>
+          <li>Qualifier, démontrer, closer petit — documenter chaque objection dans un playbook.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 61–90</span><span class="i-fr">Jours 61–90</span></div>
+      <div>
+        <h3><span class="i-en">Automate the ops, prep New York</span><span class="i-fr">Automatiser l'ops, préparer New York</span></h3>
+        <ul class="i-en">
+          <li>Ship <strong>agents for the internal ops</strong> — reporting, pipeline hygiene, feedback synthesis. I build these in production today.</li>
+          <li>Playbook documented, France repeatable — and I'm NY-ready (J-1 via the ESSEC agreement, sponsored or not).</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Livrer des <strong>agents pour l'ops interne</strong> — reporting, hygiène de pipeline, synthèse de feedback. Je construis ça en production aujourd'hui.</li>
+          <li>Playbook documenté, France réplicable — et prêt pour NY (J-1 via la convention ESSEC, sponsorisé ou non).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow"><span class="i-en">04 · Terms</span><span class="i-fr">04 · Cadre</span></div>
+  <div class="terms">
+    <h3><span class="i-en">Within my ESSEC curriculum — Paris and/or New York</span><span class="i-fr">Dans le cadre de mon cursus ESSEC — Paris et/ou New York</span></h3>
+    <p class="i-en">Consulting mission, sponsored internship or fixed-term — 6 months from September. Paris from day one; New York whenever it serves the pipeline (your posting sponsors the visa, and the ESSEC agreement makes the J-1 near-zero paperwork anyway). If the need is urgent, I'm operational within 48 hours.</p>
+    <p class="i-fr">Mission de consulting, stage conventionné ou CDD — 6 mois dès septembre. Paris dès le premier jour ; New York dès que ça sert le pipeline (votre annonce sponsorise le visa, et la convention ESSEC rend le J-1 quasi sans paperasse de toute façon). Si le besoin est urgent, opérationnel sous 48 heures.</p>
+    <p class="big"><span class="i-en">You build the OS for the trades. I've been running the trades' chaos by hand.</span><span class="i-fr">Vous construisez l'OS des artisans. Moi, je gère leur chaos à la main depuis deux ans.</span></p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow"><span class="i-en">05 · Next step</span><span class="i-fr">05 · Prochaine étape</span></div>
+  <h2><span class="i-en">15 minutes — en français si vous voulez</span><span class="i-fr">15 minutes — in English if you prefer</span></h2>
+  <p class="secsub i-en">A call: the demo, the France pipeline I'd open, and what I'd take off your plates in week one. If it's a no, you've spent fifteen minutes and gained a benchmark.</p>
+  <p class="secsub i-fr">Un call : la démo, le pipeline France que j'ouvrirais, et ce que j'enlèverais de vos assiettes dès la première semaine. Si c'est non, vous aurez passé quinze minutes et gagné un point de comparaison.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:pierre.koenig@essec.edu?subject=15%20minutes%20%E2%80%94%20Pierre%20Koenig%20(Bravi)"><span class="i-en">Book 15 minutes →</span><span class="i-fr">Réserver 15 minutes →</span></a>
+    <a class="btn btn-ghost" href="cv-pierre-koenig.pdf" download><span class="i-en">Classic CV (PDF)</span><span class="i-fr">CV classique (PDF)</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="sig">— Pierre Koenig</div>
+  <div class="links"><a href="mailto:pierre.koenig@essec.edu">pierre.koenig@essec.edu</a> · ESSEC · Paris/NY · <span class="i-en">September (48h if urgent) · 6+ months</span><span class="i-fr">septembre (48 h si urgent) · 6 mois et plus</span></div>
+</footer>
+
+</div>
+
+<script>
+const QA = {
+en: {
+  greet: "Bonjour 👋 — ask away. I'd start with the buyer one.",
+  items: [
+    {
+      q: "Have you actually worked with home-services pros?",
+      a: "As their client, constantly — which might be the more useful side. Our holding runs 41 units: renovations, HVAC, plumbing, electrical, roofing. I've chased quotes, compared three contractors for the same job, waited for callbacks that never came, and paid invoices that arrived on paper.\n\nThat's the fragmentation Bravi attacks. I haven't run an HVAC company — but I know exactly what makes their customers furious and what would make the good ones win more jobs. That's the empathy your GTM needs."
+    },
+    {
+      q: "Why Bravi?",
+      a: "Three reasons, in honesty order.\n\nOne: I'm your buyer. 41 units of contractor coordination — I live the problem you solve, in French, every week.\n\nTwo: your Founder's Associate posting is Paris/New York — my exact geography. I can build the French pipeline from day one and be NY-ready whenever it serves (J-1 via my ESSEC agreement).\n\nThree: you've done this before — Snipfeed, an exit, and now the second company. I'm building my first. Six months in your engine room is the best education available to me, and I pay for it in output."
+    },
+    {
+      q: "What have you shipped?",
+      a: "• CORTX — vertical AI platform for French real-estate operators, LLM agents in production, built with Claude. Public demo, no login.\n• 10 AI products across 9 industries in 19 days (April 2026) at an AI consulting firm.\n• The holding itself — 41 units, real renovations, real contractors, real bank debt.\n\nAll verifiable. Nothing is a mockup."
+    },
+    {
+      q: "Can you sell?",
+      a: "€900,000 of real estate sold in one month at Aguesseau Capital (€100M+ AUM fund), negotiated above asking. At Offstone (investment platform founded by an Aircall co-founder): investor relations plus the entire GTM engine, coded — 8 Python automations on HubSpot.\n\nAnd the sale Bravi needs is one I know intimately: convincing a conservative French artisan that software will pay for itself. I've been on the paying side of that skepticism."
+    },
+    {
+      q: "Paris or New York?",
+      a: "Both, in sequence. Paris from day one — that's where I am, where your French pipeline is, and where the ESSEC agreement makes the paperwork trivial. New York the day it serves the pipeline: your posting sponsors the visa, and a J-1 through my school's agreement is near-zero cost anyway.\n\nNo relocation friction in either direction. If holidays need cancelling, they're cancelled."
+    },
+    {
+      q: "Give me one number.",
+      a: "Pick one:\n\n• 41 — units whose contractors I coordinate. Your product's world.\n• €900,000 — real estate sold in one month at Aguesseau Capital.\n• 19 — days to ship 10 AI products across 9 industries.\n• €600,000 — the ESSEC student-union budget I managed as treasurer.\n• ~10 — hours a day building with Claude and AI agents."
+    },
+    {
+      q: "What's the catch?",
+      a: "I'm a BBA student, younger than most candidates, and I build my own company on the side.\n\nAgainst that: I'm the rare candidate who is simultaneously your buyer (41 units of contractor chaos), your builder (AI agents in production), and a proven operator (€900k in a month, IR, a €600k budget). And the company on the side is why I understand what two founders need from their first associate. Fifteen minutes costs less than a maybe."
+    }
+  ]
+},
+fr: {
+  greet: "Bonjour 👋 — posez vos questions. Je commencerais par celle de l'acheteur.",
+  items: [
+    {
+      q: "Tu as vraiment bossé avec des pros du bâtiment ?",
+      a: "En tant que client, en permanence — et c'est peut-être le côté le plus utile. Notre foncière tourne sur 41 lots : rénovations, CVC, plomberie, électricité, toiture. J'ai couru après les devis, comparé trois artisans pour le même chantier, attendu des rappels qui ne venaient jamais, et payé des factures arrivées sur papier.\n\nC'est la fragmentation que Bravi attaque. Je n'ai pas dirigé une boîte de CVC — mais je sais exactement ce qui rend leurs clients furieux et ce qui ferait gagner plus de chantiers aux bons. C'est l'empathie dont votre GTM a besoin."
+    },
+    {
+      q: "Pourquoi Bravi ?",
+      a: "Trois raisons, par ordre d'honnêteté.\n\nUn : je suis votre acheteur. 41 lots de coordination d'artisans — je vis le problème que vous résolvez, en français, chaque semaine.\n\nDeux : votre poste de Founder's Associate est Paris/New York — ma géographie exacte. Je peux construire le pipeline français dès le premier jour et être prêt pour NY dès que ça sert (J-1 via ma convention ESSEC).\n\nTrois : vous l'avez déjà fait — Snipfeed, un exit, et maintenant la deuxième boîte. Je construis ma première. Six mois dans votre salle des machines, c'est la meilleure formation qui existe pour moi, et je la paie en output."
+    },
+    {
+      q: "Qu'est-ce que tu as livré ?",
+      a: "• CORTX — plateforme d'IA verticale pour les opérateurs immobiliers français, agents LLM en production, construite avec Claude. Démo publique sans login.\n• 10 produits d'IA dans 9 secteurs en 19 jours (avril 2026), en cabinet de conseil IA.\n• La foncière elle-même — 41 lots, vraies rénovations, vrais artisans, vraie dette bancaire.\n\nTout est vérifiable. Rien n'est une maquette."
+    },
+    {
+      q: "Tu sais vendre ?",
+      a: "900 000 € d'immobilier vendus en un mois chez Aguesseau Capital (fonds 100 M€+ d'encours), négociés au-dessus du prix demandé. Chez Offstone (plateforme d'investissement fondée par un cofondateur d'Aircall) : relations investisseurs + le moteur GTM entier, codé — 8 automatisations Python sur HubSpot.\n\nEt la vente dont Bravi a besoin, je la connais intimement : convaincre un artisan français conservateur que le logiciel va se rembourser. J'ai été du côté payant de ce scepticisme."
+    },
+    {
+      q: "Paris ou New York ?",
+      a: "Les deux, dans l'ordre. Paris dès le premier jour — c'est là que je suis, là qu'est votre pipeline français, et là où la convention ESSEC rend la paperasse triviale. New York le jour où ça sert le pipeline : votre annonce sponsorise le visa, et un J-1 via ma convention coûte quasi zéro de toute façon.\n\nAucune friction de relocalisation dans un sens ou dans l'autre. S'il faut annuler des vacances, elles sont annulées."
+    },
+    {
+      q: "Donne-moi un chiffre.",
+      a: "Choisissez :\n\n• 41 — lots dont je coordonne les artisans. Le monde de votre produit.\n• 900 000 € — d'immobilier vendu en un mois chez Aguesseau Capital.\n• 19 — jours pour livrer 10 produits d'IA dans 9 secteurs.\n• 600 000 € — le budget BDE ESSEC géré comme trésorier.\n• ~10 — heures par jour à construire avec Claude et des agents IA."
+    },
+    {
+      q: "C'est quoi le piège ?",
+      a: "Je suis en BBA, plus jeune que la plupart des candidats, et je construis ma boîte à côté.\n\nEn face : je suis le rare candidat qui est à la fois votre acheteur (41 lots de chaos d'artisans), votre builder (agents IA en production) et un opérateur prouvé (900 k€ en un mois, IR, 600 k€ de budget). Et la boîte à côté est la raison pour laquelle je comprends ce que deux fondateurs attendent de leur premier associate. Quinze minutes coûtent moins cher qu'un peut-être."
+    }
+  ]
+}
+};
+
+let LANG = 'en';
+const chips = document.getElementById('chips');
+const body = document.getElementById('chatBody');
+
+function setLang(l) {
+  LANG = l;
+  document.body.setAttribute('data-lang', l);
+  document.documentElement.lang = l;
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  document.getElementById('btn-fr').classList.toggle('on', l === 'fr');
+  renderChat();
+}
+
+function renderChat() {
+  body.innerHTML = '';
+  chips.innerHTML = '';
+  const g = document.createElement('div');
+  g.className = 'msg a';
+  g.textContent = QA[LANG].greet;
+  body.appendChild(g);
+  QA[LANG].items.forEach(item => {
+    const c = document.createElement('button');
+    c.className = 'chip';
+    c.textContent = item.q;
+    c.onclick = () => ask(item, c);
+    chips.appendChild(c);
+  });
+}
+
+function ask(item, chipEl) {
+  if (chipEl.classList.contains('used')) return;
+  chipEl.classList.add('used');
+  const q = document.createElement('div');
+  q.className = 'msg q';
+  q.textContent = item.q;
+  body.appendChild(q);
+  const a = document.createElement('div');
+  a.className = 'msg a';
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  a.appendChild(cur);
+  body.appendChild(a);
+  body.scrollTop = body.scrollHeight;
+  let i = 0;
+  const text = item.a;
+  const t = setInterval(() => {
+    i += 3;
+    a.textContent = text.slice(0, i);
+    a.appendChild(cur);
+    body.scrollTop = body.scrollHeight;
+    if (i >= text.length) {
+      clearInterval(t);
+      cur.remove();
+    }
+  }, 12);
+}
+
+renderChat();
+</script>
+
+</body>
+</html>

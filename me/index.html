@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pierre Koenig — Builder IA terrain · proof of work</title>
+<style>
+  :root{
+    --bg:#0a0c10; --panel:#11151c; --panel2:#161b24; --line:#232b38;
+    --ink:#e8edf4; --mut:#8a97a8; --dim:#5d6878;
+    --lime:#d6fb00; --elec:#3b82f6; --warn:#f59e0b; --green:#34d399;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:56px 28px 96px}
+  header{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin:0 0 14px}
+  h1{font-size:32px;line-height:1.12;margin:0 0 14px;letter-spacing:-.01em}
+  .thesis{color:var(--mut);font-size:16.5px;max-width:720px}
+  .thesis b{color:var(--ink)}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;
+     color:var(--dim);margin:50px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  h2 .n{color:var(--lime)}
+  h3{font-size:17px;margin:0 0 4px}
+  p{margin:0 0 14px}
+  .lead{color:var(--mut)}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin:0 0 8px}
+  strong{color:#fff}
+  a{color:var(--elec);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 8px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 16px}
+  .stat .v{font-size:23px;font-weight:700;color:var(--lime);letter-spacing:-.02em;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.35}
+  .demo{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:0 0 14px;border-left:3px solid var(--lime)}
+  .demo:hover{border-color:var(--lime);text-decoration:none}
+  .demo .u{font-family:var(--mono);font-size:12px;color:var(--elec);margin-top:8px;word-break:break-all}
+  .demo h3{color:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:0 0 14px}
+  .meta{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin:2px 0 10px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:var(--mut)}
+  .badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle}
+  .badge.live{color:var(--green);border:1px solid rgba(52,211,153,.4)}
+  .badge.priv{color:var(--dim);border:1px solid var(--line)}
+  .note{font-size:12.5px;color:var(--dim);font-style:italic}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;font-family:var(--mono)}
+  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Pierre Koenig · builder IA terrain · proof of work</p>
+  <h1>Je mets de l'IA en production chez de vraies entreprises. Vite.</h1>
+  <p class="thesis">Fondateur de CORTX, ESSEC. Je ne fais pas de la recherche : je <b>déploie</b>. SaaS verticaux, agents, outils métier, branchés sur Claude et Mistral, livrés à des PME et à la direction de grands groupes. Le déploiement terrain, les frictions clients, le passage démo vers prod, c'est mon quotidien. Ci-dessous, deux produits que vous pouvez tester tout de suite, sans login.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">1</div><div class="l">cockpit IA public, entièrement navigable sans login (ci-dessous)</div></div>
+    <div class="stat"><div class="v">+11 000 €</div><div class="l">générés par mon propre outil en dogfood (ma foncière KLH)</div></div>
+    <div class="stat"><div class="v">50+</div><div class="l">repos, dont ~13 produits avec IA réelle en production</div></div>
+    <div class="stat"><div class="v">10 / 19j</div><div class="l">produits IA livrés en 19 jours, sur 9 secteurs</div></div>
+  </div>
+</header>
+
+<h2><span class="n">01</span> &nbsp;Testez maintenant (rien à installer, pas de login)</h2>
+
+<a class="demo" href="https://cortex-immobilier-cortx-team.vercel.app/demo" target="_blank" rel="noopener">
+  <h3>Cortex Immobilier — cockpit marchand de biens <span class="badge live">live</span></h3>
+  <p class="lead">Le logiciel métier des marchands de biens, en mode démo navigable sur un portefeuille anonymisé (41 lots). Parcourez les lots, les opérations (deals), la fiscalité TVA-marge, les factures, les chantiers, les notes de décision. Sourcing, audit juridique, dossier banque, fiscalité dans un seul outil.</p>
+  <div class="u">cortex-immobilier-cortx-team.vercel.app/demo</div>
+  <div class="tags"><span class="tag">Next.js 16</span><span class="tag">Supabase</span><span class="tag">Claude (Sonnet/Haiku)</span><span class="tag">157 tests</span><span class="tag">13 modules</span></div>
+</a>
+
+<h2><span class="n">02</span> &nbsp;Ce que je construis</h2>
+
+<div class="card">
+  <h3>Cortex Immobilier <span class="badge live">démo ci-dessus</span></h3>
+  <p class="meta">SaaS vertical multi-tenant · Next.js 16 + Supabase + Claude multi-model</p>
+  <p class="lead">Copilote IA des marchands de biens et asset managers : sourcing DVF, scoring, calculs fiscaux (TVA marge, Article 1115 CGI, ILAT), notes CODIR générées, dossier banque. Né comme cockpit privé de ma foncière (KLH), SaaSifié ensuite.</p>
+  <ul>
+    <li><strong>+11 000 €</strong> de retour cash prouvé en dogfood sur des opérations réelles (économie TVA marge + Art. 1115 CGI).</li>
+    <li>179 commits, 157 tests verts, 13 modules métier, RLS Supabase, Stripe.</li>
+    <li>Claude Sonnet (génération, Q&A portefeuille) + Haiku (classification), via Vercel AI Gateway.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Agents et outils métier IA <span class="badge priv">accès sur demande</span></h3>
+  <ul>
+    <li><strong>Observatoire de vigilance locative</strong> livré à la direction d'un foncier du SBF 120 : scoring sectoriel, carte de chaleur, veille sourcée. Dashboard sous accès client.</li>
+    <li><strong>Détection de signaux faibles</strong> pour un cabinet immobilier corporate : scoring de 7 500+ entreprises (BODACC, JORF, Pappers), fiche compte lisible en 90 secondes.</li>
+    <li><strong>Ticketing IA + bot WhatsApp</strong> pour une foncière résidentielle (classification, réponses suggérées, détection d'urgences).</li>
+    <li><strong>Clone numérique 24/24</strong> (Mac Mini, launchd) : agents autonomes avec validation Telegram avant toute action irréversible.</li>
+  </ul>
+  <p class="lead" style="margin-top:6px">Plus largement : 10 produits IA livrés en 19 jours sur 9 secteurs (avril 2026), à partir de cas clients réels, jamais de POC en chambre.</p>
+  <div class="tags"><span class="tag">multi-model Claude</span><span class="tag">Mistral OCR</span><span class="tag">RAG / pgvector</span><span class="tag">Telegram</span><span class="tag">cron / Fluid Compute</span></div>
+</div>
+
+<h2><span class="n">03</span> &nbsp;Comment je construis</h2>
+<ul>
+  <li><strong>Front / app</strong> : Next.js 16 (App Router), React 19, TypeScript strict, Tailwind, shadcn/ui, Vercel.</li>
+  <li><strong>Data / auth</strong> : Supabase (Postgres, RLS, pgvector), Stripe, Drizzle/Prisma selon le projet.</li>
+  <li><strong>IA</strong> : Claude (Haiku classification, Sonnet drafts, Opus raisonnement), Mistral pour l'OCR et la souveraineté EU, Vercel AI Gateway, embeddings Voyage AI, RAG sur pgvector, tool-use agentique.</li>
+  <li><strong>Terrain</strong> : Pappers, BODACC, JORF, DVF Etalab pour les données réelles. Je pars toujours d'un cas client concret.</li>
+</ul>
+
+<footer>
+  Pierre Koenig · ESSEC · pierre.koenig@essec.edu · +33 7 60 48 33 81<br>
+  Les deux démos tournent sur des données anonymisées, sans login. Accès repos et démo guidée sur demande.
+</footer>
+
+</div>
+</body>
+</html>

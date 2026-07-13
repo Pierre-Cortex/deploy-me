@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pierre Koenig · French GTM · Legora</title>
+<meta name="description" content="An interactive proposal for Legora's Paris opening — your first French-speaking GTM, September, with the 90-day plan already written.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f2; --card:#ffffff; --ink:#12211a; --dim:#5a6b60; --line:#dcd8ca;
+  --accent:#175c44; --accent-soft:#e9f0e9; --gold:#8a6a1f; --chip:#f3f1e8; --dark:#0f1f18;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Geist',sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px}
+.langbar{position:fixed;top:18px;right:22px;z-index:50;display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:0 2px 10px rgba(18,33,26,.06)}
+.langbar button{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;padding:5px 13px;border:none;border-radius:999px;background:transparent;color:var(--dim);cursor:pointer}
+.langbar button.on{background:var(--accent);color:#fff}
+body[data-lang="en"] .i-fr{display:none!important}
+body[data-lang="fr"] .i-en{display:none!important}
+.hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:6px 14px;border-radius:999px;margin-bottom:28px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-family:'Newsreader',serif;font-weight:500;font-size:48px;line-height:1.08;letter-spacing:-.015em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:19px;color:var(--dim);max-width:680px;margin-bottom:32px}
+.lede strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+h2{font-family:'Newsreader',serif;font-weight:500;font-size:32px;letter-spacing:-.01em;margin-bottom:10px}
+.secsub{color:var(--dim);max-width:680px;margin-bottom:28px}
+.chat{background:var(--dark);border:1px solid var(--dark);border-radius:14px;overflow:hidden;color:#e9f2ec}
+.chat-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid #24382e;background:#13251c}
+.chat-head .av{width:30px;height:30px;border-radius:8px;background:#2e9c72;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.chat-head .nm{font-weight:600;font-size:14px}
+.chat-head .st{font-family:'Geist Mono',monospace;font-size:11px;color:#2e9c72}
+.chat-body{padding:20px;min-height:180px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:86%;padding:12px 16px;border-radius:12px;font-size:15px;line-height:1.55;white-space:pre-line}
+.msg.q{align-self:flex-end;background:#2e9c72;color:#fff;border-bottom-right-radius:4px}
+.msg.a{align-self:flex-start;background:#182c22;border-bottom-left-radius:4px;border:1px solid #24382e}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 20px;border-top:1px solid #24382e;background:#13251c}
+.chip{font-family:'Geist Mono',monospace;font-size:12.5px;padding:8px 14px;border:1px solid #2c4437;border-radius:999px;background:#182c22;cursor:pointer;transition:all .12s;color:#e9f2ec}
+.chip:hover{border-color:#2e9c72;color:#8fe6bf;background:#1a3628}
+.chip.used{opacity:.4}
+.cursor{display:inline-block;width:8px;height:16px;background:#2e9c72;vertical-align:-2px;animation:pulse 1s infinite}
+.deal{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.deal .col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px}
+.deal .col.gain{border-color:var(--accent);box-shadow:0 4px 20px rgba(23,92,68,.08)}
+.deal .k{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.deal .cost .k{color:var(--dim)}
+.deal .gain .k{color:var(--accent)}
+.deal h3{font-family:'Newsreader',serif;font-weight:500;font-size:22px;margin-bottom:12px}
+.deal ul{list-style:none}
+.deal li{padding:6px 0 6px 22px;position:relative;color:var(--dim);font-size:14.5px}
+.deal li::before{content:"→";position:absolute;left:0;color:var(--gold)}
+.deal li strong{color:var(--ink);font-weight:600}
+.proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proof{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}
+.proof .k{font-family:'Geist Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px}
+.proof h3{font-family:'Newsreader',serif;font-weight:500;font-size:20px;margin-bottom:8px}
+.proof p{font-size:14px;color:var(--dim)}
+.proof a{color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}
+.proof a:hover{text-decoration:underline}
+.plan{display:flex;flex-direction:column}
+.phase{display:grid;grid-template-columns:130px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:none}
+.phase .d{font-family:'Geist Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;padding-top:4px}
+.phase h3{font-family:'Newsreader',serif;font-weight:500;font-size:22px;margin-bottom:8px}
+.phase ul{list-style:none}
+.phase li{padding:5px 0 5px 22px;position:relative;color:var(--dim);font-size:15px}
+.phase li::before{content:"→";position:absolute;left:0;color:var(--gold)}
+.phase li strong{color:var(--ink);font-weight:600}
+footer{padding:48px 0 72px}
+footer .sig{font-family:'Newsreader',serif;font-style:italic;font-size:22px;margin-bottom:10px}
+footer .links{font-family:'Geist Mono',monospace;font-size:13px;color:var(--dim)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:760px){h1{font-size:33px}.proofs,.deal{grid-template-columns:1fr}.phase{grid-template-columns:1fr;gap:6px}.hero{padding:56px 0 40px}.langbar{top:12px;right:12px}}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="langbar">
+  <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
+</div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span><span class="i-en">status: available — September · Stockholm in-office, Paris from day one · ESSEC curriculum (mission / internship / fixed-term)</span><span class="i-fr">statut : disponible — septembre · Stockholm in-office, Paris dès le premier jour · cursus ESSEC (mission / stage / CDD)</span></div>
+  <h1><span class="i-en">You're opening Paris this quarter.<br><em>I've already sold AI to the French professionals who swore they'd never use it.</em></span><span class="i-fr">Vous ouvrez Paris ce trimestre.<br><em>J'ai déjà vendu de l'IA aux professionnels français qui juraient de ne jamais y toucher.</em></span></h1>
+  <p class="lede i-en">France is one of your earliest markets — clients in production before the office even opens. What the Paris opening needs first is someone who <strong>speaks French dealmaker</strong>: I'm <strong>Pierre Koenig</strong>, ESSEC, and I've built, sold and deployed AI with France's regulated real-estate professionals — the same relationship-driven, precedent-obsessed sale you run with law firms. You bought a hundred lawyer lunches before writing code. This page is my version of that homework.</p>
+  <p class="lede i-fr">La France est l'un de vos marchés les plus précoces — des clients en production avant même l'ouverture du bureau. Ce qu'il faut d'abord à Paris, c'est quelqu'un qui <strong>parle le langage des professions réglementées françaises</strong> : je suis <strong>Pierre Koenig</strong>, ESSEC, et j'ai construit, vendu et déployé de l'IA chez les professionnels de l'immobilier français — la même vente relationnelle, obsédée par le précédent, que vous menez avec les cabinets. Vous avez payé cent déjeuners d'avocats avant d'écrire du code. Cette page est ma version de ce travail.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#chat"><span class="i-en">Interview @pierre ↓</span><span class="i-fr">Interviewer @pierre ↓</span></a>
+    <a class="btn btn-ghost" href="#plan"><span class="i-en">The 90-day Paris plan</span><span class="i-fr">Le plan Paris en 90 jours</span></a>
+  </div>
+</div>
+
+<section id="deal">
+  <div class="eyebrow"><span class="i-en">01 · The deal</span><span class="i-fr">01 · Le deal</span></div>
+  <h2><span class="i-en">What I cost vs. what you get</span><span class="i-fr">Ce que je coûte vs. ce que vous gagnez</span></h2>
+  <div class="deal">
+    <div class="col cost">
+      <div class="k"><span class="i-en">What I cost</span><span class="i-fr">Ce que je coûte</span></div>
+      <h3><span class="i-en">Almost nothing</span><span class="i-fr">Presque rien</span></h3>
+      <ul class="i-en">
+        <li><strong>ESSEC agreement</strong> — consulting mission, sponsored internship or fixed-term: light admin, near-zero cost.</li>
+        <li><strong>6 months</strong> — a full trial before any real commitment.</li>
+        <li>If I'm not producing pipeline by day 45, <strong>you've lost almost nothing</strong>.</li>
+      </ul>
+      <ul class="i-fr">
+        <li><strong>Convention ESSEC</strong> — mission de consulting, stage conventionné ou CDD : administratif léger, coût quasi nul.</li>
+        <li><strong>6 mois</strong> — un essai complet avant tout engagement réel.</li>
+        <li>Si je ne produis pas de pipeline au jour 45, <strong>vous n'avez presque rien perdu</strong>.</li>
+      </ul>
+    </div>
+    <div class="col gain">
+      <div class="k"><span class="i-en">What you get</span><span class="i-fr">Ce que vous gagnez</span></div>
+      <h3><span class="i-en">A French market operator, day one</span><span class="i-fr">Un opérateur du marché français, dès le premier jour</span></h3>
+      <ul class="i-en">
+        <li>Someone who has <strong>already run the regulated-profession sale in French</strong> — cold call to production deployment.</li>
+        <li>A <strong>90-day Paris plan</strong> written before the first coffee (below).</li>
+        <li>A network where <strong>law firms, notaries and real-estate dealmakers cross paths daily</strong> — your future clients meet my current ones.</li>
+      </ul>
+      <ul class="i-fr">
+        <li>Quelqu'un qui a <strong>déjà mené la vente aux professions réglementées, en français</strong> — du cold call au déploiement en production.</li>
+        <li>Un <strong>plan Paris en 90 jours</strong> écrit avant le premier café (ci-dessous).</li>
+        <li>Un réseau où <strong>avocats, notaires et marchands de biens se croisent chaque jour</strong> — vos futurs clients côtoient les miens.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="chat">
+  <div class="eyebrow"><span class="i-en">02 · The agent</span><span class="i-fr">02 · L'agent</span></div>
+  <h2><span class="i-en">@pierre — interview me</span><span class="i-fr">@pierre — interviewez-moi</span></h2>
+  <p class="secsub i-en">Scripted, not generative — every answer written once, carefully. Start with the hard one: I'm not a lawyer.</p>
+  <p class="secsub i-fr">Scripté, pas génératif — chaque réponse écrite une fois, avec soin. Commencez par la plus dure : je ne suis pas juriste.</p>
+  <div class="chat">
+    <div class="chat-head">
+      <div class="av">P</div>
+      <div><div class="nm">@pierre</div></div>
+      <div style="flex:1"></div>
+      <div class="st"><span class="i-en">● online</span><span class="i-fr">● en ligne</span></div>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow"><span class="i-en">03 · Evidence</span><span class="i-fr">03 · Preuves</span></div>
+  <h2><span class="i-en">Shipped, sold, operated</span><span class="i-fr">Construit, vendu, opéré</span></h2>
+  <div class="proofs">
+    <div class="proof">
+      <div class="k"><span class="i-en">Sold to the resistant</span><span class="i-fr">Vendu aux réfractaires</span></div>
+      <h3>CORTX</h3>
+      <p class="i-en">Vertical AI platform for French real-estate operators — built with AI agents, sold and deployed with professionals who "would never use AI". Public demo, no login.</p>
+      <p class="i-fr">Plateforme d'IA verticale pour les opérateurs immobiliers français — construite avec des agents IA, vendue et déployée chez des professionnels qui "n'utiliseraient jamais l'IA". Démo publique, sans login.</p>
+      <p style="margin-top:10px"><a href="https://cortex-immobilier-cortx-team.vercel.app/demo"><span class="i-en">Open the demo →</span><span class="i-fr">Ouvrir la démo →</span></a></p>
+    </div>
+    <div class="proof">
+      <div class="k"><span class="i-en">Real sales, real numbers</span><span class="i-fr">Vraie vente, vrais chiffres</span></div>
+      <h3><span class="i-en">€900k / 1 month</span><span class="i-fr">900 k€ / 1 mois</span></h3>
+      <p class="i-en">Real estate sold in one month at Aguesseau Capital (€100M+ AUM), above asking. Full-cycle: sourcing, pitch, close.</p>
+      <p class="i-fr">D'immobilier vendu en un mois chez Aguesseau Capital (100 M€+), au-dessus du prix demandé. Cycle complet : sourcing, pitch, close.</p>
+    </div>
+    <div class="proof">
+      <div class="k"><span class="i-en">Executive-grade ops</span><span class="i-fr">Ops de niveau exécutif</span></div>
+      <h3><span class="i-en">IR + GTM, done</span><span class="i-fr">IR + GTM, faits</span></h3>
+      <p class="i-en">Investor relations at Offstone (platform founded by an Aircall co-founder) · GTM engine coded end-to-end · €600k student-union budget as ESSEC treasurer.</p>
+      <p class="i-fr">Relations investisseurs chez Offstone (plateforme d'un cofondateur d'Aircall) · moteur GTM codé de bout en bout · 600 k€ de budget BDE comme trésorier ESSEC.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="eyebrow"><span class="i-en">04 · The plan</span><span class="i-fr">04 · Le plan</span></div>
+  <h2><span class="i-en">90 days, synchronized with the Paris opening</span><span class="i-fr">90 jours, synchronisés avec l'ouverture de Paris</span></h2>
+  <p class="secsub i-en">You plan one quarter ahead — so here's exactly one quarter, built like you build product: ship, measure, iterate.</p>
+  <p class="secsub i-fr">Vous planifiez un trimestre à la fois — en voici exactement un, construit comme vous construisez le produit : livrer, mesurer, itérer.</p>
+  <div class="plan">
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 1–30</span><span class="i-fr">Jours 1–30</span></div>
+      <div>
+        <h3><span class="i-en">Stockholm — learn the motion</span><span class="i-fr">Stockholm — apprendre la mécanique</span></h3>
+        <ul class="i-en">
+          <li>Product deep-dive: Tabular Review, Workflows, the add-ins — until I can demo <strong>in French, credibly, alone</strong>.</li>
+          <li>Sit on live SMB cycles: qualification, demo, close — absorb the playbook that already works.</li>
+          <li>Map the French target list: business law firms, mid-market practices, in-house teams — <strong>scored and prioritized</strong> before day 30.</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Immersion produit : Tabular Review, Workflows, les add-ins — jusqu'à savoir faire la démo <strong>en français, crédiblement, seul</strong>.</li>
+          <li>Assis sur les cycles SMB en cours : qualification, démo, close — absorber le playbook qui marche déjà.</li>
+          <li>Cartographier la cible française : cabinets d'affaires, mid-market, équipes in-house — <strong>scorée et priorisée</strong> avant le jour 30.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 31–60</span><span class="i-fr">Jours 31–60</span></div>
+      <div>
+        <h3><span class="i-en">Build the French pipeline</span><span class="i-fr">Construire le pipeline français</span></h3>
+        <ul class="i-en">
+          <li>Outbound <strong>in French</strong>, to French legal culture — not a translated sequence, a native one.</li>
+          <li>Activate the adjacent ecosystem: notaries and real-estate counsel <strong>I already work with</strong> refer to the firms you want.</li>
+          <li>First demos delivered in French; objections documented and fed back to product — the feedback loop you say the business runs on.</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Outbound <strong>en français</strong>, pour la culture juridique française — pas une séquence traduite, une séquence native.</li>
+          <li>Activer l'écosystème adjacent : les notaires et avocats immobiliers <strong>avec qui je travaille déjà</strong> renvoient vers les cabinets que vous visez.</li>
+          <li>Premières démos livrées en français ; objections documentées et remontées produit — la boucle de feedback dont vous dites que le business dépend.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="d"><span class="i-en">Days 61–90</span><span class="i-fr">Jours 61–90</span></div>
+      <div>
+        <h3><span class="i-en">Convert, and write the playbook</span><span class="i-fr">Convertir, et écrire le playbook</span></h3>
+        <ul class="i-en">
+          <li>Push the first French SMB cycles <strong>to close</strong> — with the team, then increasingly alone.</li>
+          <li>Document the <strong>French playbook</strong>: messaging, objections, pricing conversations — so every Paris hire after me starts at day 60, not day zero.</li>
+          <li>Quarter review: pipeline built, cycles closed, what the next quarter needs. You decide what I become — that's the deal.</li>
+        </ul>
+        <ul class="i-fr">
+          <li>Pousser les premiers cycles SMB français <strong>jusqu'au close</strong> — avec l'équipe, puis de plus en plus seul.</li>
+          <li>Documenter le <strong>playbook français</strong> : messaging, objections, conversations pricing — pour que chaque recrue parisienne après moi démarre au jour 60, pas au jour zéro.</li>
+          <li>Revue de trimestre : pipeline construit, cycles fermés, ce qu'il faut au trimestre suivant. Vous décidez de ce que je deviens — c'est le deal.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow"><span class="i-en">05 · Next step</span><span class="i-fr">05 · Prochaine étape</span></div>
+  <h2><span class="i-en">15 minutes to verify</span><span class="i-fr">15 minutes pour vérifier</span></h2>
+  <p class="secsub i-en">On a call, or in Stockholm within 48 hours: I'll demo the platform I built and sold, in French then in English, and walk through the Paris target map. If it's a no, you've spent fifteen minutes and gained a benchmark for your Paris hires.</p>
+  <p class="secsub i-fr">En visio, ou à Stockholm sous 48 heures : je fais la démo de la plateforme que j'ai construite et vendue, en français puis en anglais, et je déroule la carte des cibles parisiennes. Si c'est non, vous aurez passé quinze minutes et gagné un point de comparaison pour vos recrutements Paris.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:pierre.koenig@essec.edu?subject=15%20minutes%20%E2%80%94%20Pierre%20Koenig%20(Legora%20Paris)"><span class="i-en">Book 15 minutes →</span><span class="i-fr">Réserver 15 minutes →</span></a>
+    <a class="btn btn-ghost" href="cv-pierre-koenig.pdf" download><span class="i-en">Classic CV (PDF)</span><span class="i-fr">CV classique (PDF)</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="sig">— Pierre Koenig</div>
+  <div class="links"><a href="mailto:pierre.koenig@essec.edu">pierre.koenig@essec.edu</a> · ESSEC · <span class="i-en">September · Stockholm / Paris · 6+ months</span><span class="i-fr">septembre · Stockholm / Paris · 6 mois et plus</span></div>
+</footer>
+
+</div>
+
+<script>
+const QA = {
+en: {
+  greet: "Hej 👋 — ask away. Start with the hard one.",
+  items: [
+    {
+      q: "You're not a lawyer. Why should we care?",
+      a: "Correct — no law degree, never worked in a firm. But neither had Max: he bought a hundred lawyer lunches to learn the trade before writing code.\n\nI did the French version of that homework. I spent months selling and deploying AI with French real-estate dealmakers — a regulated, precedent-driven, relationship-first profession that swore it would never touch AI. Same buyer psychology as your market: trust before tools, proof before promises, their language or nothing.\n\nThe legal depth, I'll build the way Max did — by sitting with the clients. The sale to a resistant regulated profession, I've already run it. That part doesn't need teaching."
+    },
+    {
+      q: "Why Legora?",
+      a: "Three honest reasons.\n\nOne: the timing is not generic. You're opening Paris this quarter and France is already one of your earliest markets — clients in production before the office exists. That gap between demand and team is exactly where I'm useful, exactly now.\n\nTwo: your own hiring frame. You've said you look for high slope or high y-intercept. At 21, running a company during my studies, I'm the steepest slope you'll interview this quarter — and the ESSEC frame makes trying me nearly free.\n\nThree: the race with Harvey is a land grab, and land grabs are won market by market, in the local language. I want to help win France — and learn how a $100M ARR machine actually runs, from inside."
+    },
+    {
+      q: "Where did you learn to do this?",
+      a: "Nowhere — and that's the honest answer. There is no school for AI-native GTM. Forward-deployed and GTM-engineer roles grew several hundred percent in postings since 2025 without a single academic track behind them. Business school teaches the pre-agent world.\n\nSo I built my own curriculum: founded a vertical AI platform, sold it to professionals who didn't want it, coded a GTM engine at Offstone, sold €900k of real estate in a month at Aguesseau Capital. Roughly ten hours a day of practice, documented and verifiable.\n\nYou've said the value of foundation models is in how they're applied. Same for talent: what matters isn't where you learned — it's what you've deployed."
+    },
+    {
+      q: "What have you actually shipped?",
+      a: "• A vertical AI platform for French real-estate operators — AI agents in production, sold and deployed with real clients, public demo without login (see the evidence section).\n• 10 AI products across 9 industries in 19 days (April 2026) at an AI consulting firm — for major French real-estate players.\n• A real-estate holding co-founded at 20 — 41 units, bank debt, real operations, surrounded by the notaries and real-estate counsel who talk to your future clients.\n\nEverything verifiable, nothing is a mockup."
+    },
+    {
+      q: "Give me one number.",
+      a: "Pick one:\n\n• €900,000 — real estate sold in one month at Aguesseau Capital (€100M+ AUM), above asking.\n• 19 — days to ship 10 AI products across 9 industries.\n• 41 — units in the holding I co-founded (the ecosystem where notaries, lawyers and dealmakers meet).\n• €600,000 — the ESSEC student-union budget I managed as treasurer.\n• ~10 — hours a day building and selling with AI agents."
+    },
+    {
+      q: "When can you start?",
+      a: "September, within my ESSEC curriculum — consulting mission, sponsored internship or fixed-term, whichever structure suits Legora. Stockholm in-office for onboarding, Paris from day one of the office if that serves the plan better.\n\nThe ESSEC agreement keeps admin light and cost near zero. And if you want to verify before September: I'm on a call within 48 hours, or in Stockholm the same week."
+    },
+    {
+      q: "What's the catch?",
+      a: "I'm 21 and a BBA student — your GTM Manager posting asks for 3-4 years of SaaS sales. I've never run Salesforce in a formal sales org. And no legal background.\n\nAgainst that: the years I lack in tenure, I've compressed in reps — full sales cycles run for my own company, where losing a deal meant not eating. A 6-month ESSEC mission is the cheapest way to test whether slope beats tenure. If it doesn't, you've lost a quarter's coffee budget. If it does, your Paris office opens with its French playbook already written."
+    }
+  ]
+},
+fr: {
+  greet: "Bonjour 👋 — posez vos questions. Commencez par la plus dure.",
+  items: [
+    {
+      q: "Tu n'es pas juriste. Pourquoi on devrait s'y intéresser ?",
+      a: "Exact — pas de droit, jamais travaillé en cabinet. Mais Max non plus : il a payé cent déjeuners d'avocats pour apprendre le métier avant d'écrire du code.\n\nJ'ai fait la version française de ce travail. J'ai passé des mois à vendre et déployer de l'IA chez les marchands de biens français — une profession réglementée, obsédée par le précédent, où la relation prime, et qui jurait de ne jamais toucher à l'IA. La même psychologie d'achat que votre marché : la confiance avant les outils, la preuve avant les promesses, leur langue ou rien.\n\nLa profondeur juridique, je la construirai comme Max l'a fait — en m'asseyant avec les clients. La vente à une profession réglementée réfractaire, je l'ai déjà menée. Cette partie-là n'a pas besoin d'être enseignée."
+    },
+    {
+      q: "Pourquoi Legora ?",
+      a: "Trois raisons honnêtes.\n\nUn : le timing n'est pas générique. Vous ouvrez Paris ce trimestre et la France est déjà l'un de vos marchés les plus précoces — des clients en production avant même que le bureau existe. Cet écart entre la demande et l'équipe, c'est exactement là où je suis utile, exactement maintenant.\n\nDeux : votre propre grille de recrutement. Vous dites chercher une pente forte ou une ordonnée haute. À 21 ans, en dirigeant une boîte pendant mes études, je suis la pente la plus raide que vous verrez ce trimestre — et le cadre ESSEC rend l'essai quasi gratuit.\n\nTrois : la course avec Harvey est une conquête de territoire, et elle se gagne marché par marché, dans la langue locale. Je veux aider à gagner la France — et apprendre de l'intérieur comment tourne une machine à 100 M$ d'ARR."
+    },
+    {
+      q: "Tu as appris ça où ?",
+      a: "Nulle part — et c'est la réponse honnête. Il n'existe pas d'école du GTM IA-natif. Les postes forward-deployed et GTM engineer ont crû de plusieurs centaines de pour cent depuis 2025 sans qu'aucune filière académique n'existe derrière. L'école de commerce enseigne le monde d'avant les agents.\n\nAlors j'ai construit mon propre cursus : fondé une plateforme d'IA verticale, vendue à des professionnels qui n'en voulaient pas, codé un moteur GTM chez Offstone, vendu 900 k€ d'immobilier en un mois chez Aguesseau Capital. Environ dix heures de pratique par jour, documentées et vérifiables.\n\nVous dites que la valeur des modèles de fondation est dans leur application. Pareil pour les profils : ce qui compte n'est pas où on a appris — c'est ce qu'on a déployé."
+    },
+    {
+      q: "Qu'est-ce que tu as vraiment livré ?",
+      a: "• Une plateforme d'IA verticale pour les opérateurs immobiliers français — agents IA en production, vendue et déployée chez de vrais clients, démo publique sans login (voir la section preuves).\n• 10 produits d'IA dans 9 secteurs en 19 jours (avril 2026), en cabinet de conseil IA — pour des acteurs majeurs de l'immobilier français.\n• Une foncière cofondée à 20 ans — 41 lots, dette bancaire, exploitation réelle, entourée des notaires et avocats immobiliers qui parlent à vos futurs clients.\n\nTout est vérifiable, rien n'est une maquette."
+    },
+    {
+      q: "Donne-moi un chiffre.",
+      a: "Choisissez :\n\n• 900 000 € — d'immobilier vendu en un mois chez Aguesseau Capital (fonds 100 M€+), au-dessus du prix demandé.\n• 19 — jours pour livrer 10 produits d'IA dans 9 secteurs.\n• 41 — lots de la foncière que j'ai cofondée (l'écosystème où notaires, avocats et marchands de biens se croisent).\n• 600 000 € — le budget BDE ESSEC géré comme trésorier.\n• ~10 — heures par jour à construire et vendre avec des agents IA."
+    },
+    {
+      q: "Tu commences quand ?",
+      a: "Septembre, dans le cadre de mon cursus ESSEC — mission de consulting, stage conventionné ou CDD, la structure qui convient à Legora. Stockholm in-office pour l'onboarding, Paris dès le premier jour du bureau si ça sert mieux le plan.\n\nLa convention ESSEC garde l'administratif léger et le coût quasi nul. Et pour vérifier avant septembre : je suis en visio sous 48 heures, ou à Stockholm la semaine même."
+    },
+    {
+      q: "C'est quoi le piège ?",
+      a: "J'ai 21 ans, je suis en BBA — votre annonce GTM Manager demande 3-4 ans de vente SaaS. Je n'ai jamais opéré Salesforce dans une vraie org sales. Et pas de background juridique.\n\nEn face : les années qui me manquent en ancienneté, je les ai compressées en répétitions — des cycles de vente complets menés pour ma propre boîte, où perdre un deal voulait dire ne pas manger. Une mission ESSEC de 6 mois est le moyen le moins cher de tester si la pente bat l'ancienneté. Si non, vous avez perdu un budget café de trimestre. Si oui, votre bureau de Paris ouvre avec son playbook français déjà écrit."
+    }
+  ]
+}
+};
+
+let LANG = 'en';
+const chips = document.getElementById('chips');
+const body = document.getElementById('chatBody');
+
+function setLang(l) {
+  LANG = l;
+  document.body.setAttribute('data-lang', l);
+  document.documentElement.lang = l;
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  document.getElementById('btn-fr').classList.toggle('on', l === 'fr');
+  renderChat();
+}
+
+function renderChat() {
+  body.innerHTML = '';
+  chips.innerHTML = '';
+  const g = document.createElement('div');
+  g.className = 'msg a';
+  g.textContent = QA[LANG].greet;
+  body.appendChild(g);
+  QA[LANG].items.forEach(item => {
+    const c = document.createElement('button');
+    c.className = 'chip';
+    c.textContent = item.q;
+    c.onclick = () => ask(item, c);
+    chips.appendChild(c);
+  });
+}
+
+function ask(item, chipEl) {
+  if (chipEl.classList.contains('used')) return;
+  chipEl.classList.add('used');
+  const q = document.createElement('div');
+  q.className = 'msg q';
+  q.textContent = item.q;
+  body.appendChild(q);
+  const a = document.createElement('div');
+  a.className = 'msg a';
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  a.appendChild(cur);
+  body.appendChild(a);
+  body.scrollTop = body.scrollHeight;
+  let i = 0;
+  const text = item.a;
+  const t = setInterval(() => {
+    i += 3;
+    a.textContent = text.slice(0, i);
+    a.appendChild(cur);
+    body.scrollTop = body.scrollHeight;
+    if (i >= text.length) {
+      clearInterval(t);
+      cur.remove();
+    }
+  }, 12);
+}
+
+renderChat();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Rapport d'adoption : Pierre Koenig pour Mendo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f0e7; --paper2:#ece8dc; --ink:#16160f; --ink2:#3a3a30;
+    --line:#d8d2c2; --green:#0d7a52; --green2:#0a5f40; --signal:#c8451f; --muted:#7a7666;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hanken Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--paper);
+    line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 26px}
+  .mono{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .rise{opacity:0;transform:translateY(16px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* header */
+  header{border-bottom:1.5px solid var(--ink);padding:26px 0 20px;margin-bottom:0;background:var(--paper)}
+  .topbar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+  .topbar .mono{color:var(--green2)}
+  .topbar .st{color:var(--muted)}
+
+  /* hero */
+  .hero{padding:64px 0 54px;border-bottom:1px solid var(--line);position:relative}
+  .hero .tag{color:var(--green2);margin-bottom:22px}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(34px,6vw,62px);line-height:1.04;letter-spacing:-.015em;max-width:16ch}
+  h1 em{font-style:italic;color:var(--green2)}
+  .hero .sub{margin-top:24px;font-size:clamp(16px,2.1vw,19px);max-width:52ch;color:var(--ink2)}
+  .hero .meta{margin-top:30px;padding:16px 20px;border:1px solid var(--line);border-left:3px solid var(--green);background:var(--paper2);max-width:56ch;font-size:14.5px}
+  .hero .meta b{color:var(--green2)}
+
+  /* metrics */
+  .band{padding:52px 0;border-bottom:1px solid var(--line)}
+  .band .lbl{color:var(--muted);margin-bottom:26px;display:flex;align-items:center;gap:12px}
+  .band .lbl::after{content:"";flex:1;height:1px;background:var(--line)}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);background:var(--line)}
+  .metric{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:7px}
+  .metric .v{font-family:"Fraunces",serif;font-weight:600;font-size:32px;line-height:1;letter-spacing:-.01em}
+  .metric .k{font-size:12.5px;color:var(--ink2);line-height:1.4}
+  .metric .src{font-family:"Space Mono",monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:auto;padding-top:8px}
+  @media(max-width:720px){.metrics{grid-template-columns:repeat(2,1fr)}}
+
+  /* reading sections */
+  .sec{padding:52px 0;border-bottom:1px solid var(--line)}
+  .sec .lbl{color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .sec .lbl::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(24px,3.6vw,34px);line-height:1.12;letter-spacing:-.01em;margin-bottom:18px;max-width:22ch}
+  h2 em{font-style:italic;color:var(--green2)}
+  .sec p{font-size:16px;color:var(--ink2);max-width:60ch;margin-bottom:14px}
+  .sec p strong{color:var(--ink);font-weight:600}
+
+  /* plan */
+  .plan{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  @media(max-width:720px){.plan{grid-template-columns:1fr}}
+  .step{border:1px solid var(--line);background:var(--paper);padding:20px}
+  .step .d{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green2);margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+  .step .t{font-weight:700;font-size:15px;margin-bottom:8px}
+  .step p{font-size:13.5px;margin-bottom:0}
+
+  /* chips */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+  .chip{font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.03em;padding:8px 14px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);cursor:pointer;transition:all .18s;color:var(--ink)}
+  .chip:hover{background:var(--ink);color:var(--paper)}
+  .chip.on{background:var(--green2);border-color:var(--green2);color:#fff}
+  .answer{border:1px solid var(--line);border-left:3px solid var(--green);background:var(--paper2);padding:20px 22px;font-size:15.5px;color:var(--ink2);min-height:96px}
+  .answer b{color:var(--green2)}
+
+  /* demand */
+  .demand{background:var(--ink);color:var(--paper);padding:44px 0}
+  .demand .wrap>.lbl{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9fd9c1;margin-bottom:18px}
+  .demand h2{color:var(--paper);max-width:24ch}
+  .demand h2 em{color:#7ee0b6}
+  .demand p{color:#cfcabb;font-size:16px;max-width:58ch;margin-bottom:22px}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:14px 22px;border-radius:2px;transition:transform .16s,background .16s}
+  .cta:hover{background:var(--green2);transform:translateY(-1px)}
+  .cta.ghost{background:transparent;border:1px solid #4a5a52;color:var(--paper);margin-left:10px}
+  .cta.ghost:hover{background:#1f2b25}
+  @media(max-width:520px){.cta.ghost{margin-left:0;margin-top:10px}}
+
+  footer{padding:30px 0;font-size:12.5px;color:var(--muted)}
+  footer .mono{color:var(--muted)}
+  .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <span class="mono">Mendo · Rapport d'adoption</span>
+    <span class="mono st">Sujet : Pierre Koenig · établi le 21.07.2026</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="mono tag rise" style="animation-delay:.05s">Utilisateur observé · niveau : power user</div>
+    <h1 class="rise" style="animation-delay:.12s">Vous avez fondé Mendo à 21 ans, à l'ESSEC. J'ai <em>21 ans, à l'ESSEC</em>, et je construis avec l'IA tous les jours.</h1>
+    <p class="sub rise" style="animation-delay:.22s">Je ne postule pas à un poste listé. Je vous propose de venir tenir le commercial grands comptes pendant que vous passez de 50 à 100. Voici ce que j'apporte, mesuré comme vous mesurez l'adoption chez vos clients.</p>
+    <div class="meta rise" style="animation-delay:.32s">
+      Un détail qui compte : <b>cette page a été construite avec de l'IA, en quelques heures.</b> C'est exactement la thèse que Mendo vend, une personne qui utilise l'IA pour aller vite et bien. Je n'en parle pas, j'en suis la démonstration.
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="mono lbl">Métriques d'adoption · données réelles</div>
+    <div class="metrics">
+      <div class="metric rise" style="animation-delay:.1s">
+        <div class="v">900 k€</div>
+        <div class="k">de transactions immobilières vendues en un mois</div>
+        <div class="src">Aguesseau Capital</div>
+      </div>
+      <div class="metric rise" style="animation-delay:.18s">
+        <div class="v">10 / 19</div>
+        <div class="k">produits IA livrés en 19 jours, sur 9 secteurs</div>
+        <div class="src">mission de conseil</div>
+      </div>
+      <div class="metric rise" style="animation-delay:.26s">
+        <div class="v">41</div>
+        <div class="k">logements pilotés par un outil IA que j'ai construit, démo publique</div>
+        <div class="src">foncière familiale · usage interne</div>
+      </div>
+      <div class="metric rise" style="animation-delay:.34s">
+        <div class="v">600 k€</div>
+        <div class="k">de budget administré comme trésorier</div>
+        <div class="src">BDE ESSEC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Lecture · où je vous vois</div>
+    <h2>À 50 personnes, vous êtes encore <em>partout</em>. À 100, ce n'est plus tenable.</h2>
+    <p>Mendo vend l'adoption de l'IA à PwC, Edenred, Crédit Agricole, Novo Nordisk. Un ICP grands comptes, décideurs RH et Digital, cycles longs. La Série A finance le passage de 50 à 100, priorité produit, ingénierie et vente.</p>
+    <p>Pendant ce doublement, le CEO ne peut pas être en même temps au closing, au recrutement, au produit, chez les investisseurs et dans la presse. <strong>Le premier point qui casse, c'est le suivi commercial des comptes que personne n'a le temps de rappeler.</strong> C'est là que je me mets.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Proposition · les 90 premiers jours</div>
+    <h2>Un bras droit commercial, pas un stagiaire qu'il faut briefer deux fois.</h2>
+    <div class="plan">
+      <div class="step rise" style="animation-delay:.06s">
+        <div class="d">Jours 1 à 30</div>
+        <div class="t">Reprendre le pipeline dormant</div>
+        <p>Qualifier les comptes grands comptes non rappelés, préparer les démos, remettre chaque opportunité au bon statut avec une prochaine étape datée. Vous récupérez du temps la première semaine.</p>
+      </div>
+      <div class="step rise" style="animation-delay:.14s">
+        <div class="d">Jours 30 à 60</div>
+        <div class="t">Structurer l'onboarding grands comptes</div>
+        <p>Construire les playbooks d'onboarding et le suivi de succès client, nourrir votre couche analytics avec le ROI réel mesuré chez les premiers comptes.</p>
+      </div>
+      <div class="step rise" style="animation-delay:.22s">
+        <div class="d">Jours 60 à 90</div>
+        <div class="t">Ouvrir un marché européen</div>
+        <p>Veille concurrentielle locale, préparation des pitches marché, premiers contacts partenaires et intégrateurs sur une géographie que vous voulez tester.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Objections · testez-moi</div>
+    <h2>Les questions que vous vous posez déjà.</h2>
+    <div class="chips" id="chips">
+      <span class="chip on" data-a="0">21 ans, sérieusement ?</span>
+      <span class="chip" data-a="1">Pas de SaaS enterprise ?</span>
+      <span class="chip" data-a="2">Pourquoi Mendo ?</span>
+      <span class="chip" data-a="3">Pourquoi pas un profil senior ?</span>
+    </div>
+    <div class="answer" id="answer"></div>
+  </div>
+</section>
+
+<section class="demand">
+  <div class="wrap">
+    <div class="lbl">La demande</div>
+    <h2>30 minutes, et je vous montre le pipeline que je reprendrais <em>en premier</em>.</h2>
+    <p>Stage conventionné ESSEC, 6 mois, à distance avec un point chaque semaine, format flexible. Je viens apprendre en abattant du travail utile, pas remplir une ligne de CV. Si au bout de 30 jours mesurés je ne vous ai rien enlevé, on arrête là, sans friction.</p>
+    <a class="cta" href="mailto:pierre.koenig@essec.edu?subject=Mendo%20x%20Pierre%20Koenig%20%3A%20on%20se%20parle%20%3F&body=Pierre%2C%20j%27ai%20vu%20la%20page.%20Prenons%2020%20minutes%20%3A%20">Écrire à Pierre</a>
+    <a class="cta ghost" href="./cv.pdf">Le CV, une page</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="mono">Pierre Koenig · ESSEC · Paris</span>
+    <span class="mono">Construit avec de l'IA · 21.07.2026</span>
+  </div>
+</footer>
+
+<script>
+  var A=[
+    "<b>Vous aussi aviez 21 ans en fondant Mendo.</b> L'âge n'a jamais été le frein, la méthode oui. Ce que vous verrez d'abord, c'est si je comprends vos vrais problèmes commerciaux. Testez-moi sur un compte, pas sur ma date de naissance.",
+    "<b>C'est vrai, et je ne le cache pas.</b> Je n'ai pas vendu de SaaS enterprise. J'ai vendu 900 k€ d'immobilier en un mois à des interlocuteurs institutionnels, cycle complet de la qualification au closing. La mécanique d'un grand compte, je l'apprends vite, la posture face à un décideur, je l'ai déjà.",
+    "<b>Parce que je vis votre thèse.</b> Je construis avec l'IA tous les jours, et je sais ce que ça change quand on l'utilise vraiment. Aider une profession à adopter l'IA plutôt qu'à la subir, c'est exactement le travail que j'ai envie de faire, et vous êtes la meilleure école pour ça.",
+    "<b>Un senior coûte cher et arrive avec ses habitudes.</b> Moi j'arrive avec de la vitesse, la dalle, et zéro ego sur le périmètre. Vous me donnez l'ambigu, celui que personne n'a le temps de traiter, et je le transforme en pipeline suivi. Le senior, vous le prendrez quand la machine tournera."
+  ];
+  var chips=document.querySelectorAll('.chip'), ans=document.getElementById('answer');
+  function set(i){ans.innerHTML=A[i];chips.forEach(function(c,j){c.classList.toggle('on',j==i)})}
+  chips.forEach(function(c){c.addEventListener('click',function(){set(+c.dataset.a)})});
+  set(0);
+</script>
+</body>
+</html>

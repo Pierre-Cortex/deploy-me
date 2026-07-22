@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Screening engine : un prototype pour Kima, par Pierre Koenig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f2ea; --paper2:#ece7db; --ink:#141310; --ink2:#38352d;
+    --line:#d5cfbf; --amber:#a8551a; --green:#2f6b3f; --red:#a3341f; --muted:#7c7666;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Libre Franklin",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{max-width:900px;margin:0 auto;padding:0 26px}
+  .mono{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .rise{opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  header{border-bottom:1.5px solid var(--ink);padding:20px 0;background:var(--paper)}
+  .topbar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+  .topbar .l{color:var(--amber);font-weight:600}
+  .topbar .r{color:var(--muted)}
+
+  .hero{padding:60px 0 48px;border-bottom:1px solid var(--line)}
+  .hero blockquote{font-family:"Newsreader",serif;font-style:italic;font-size:clamp(19px,2.6vw,25px);line-height:1.32;color:var(--ink2);border-left:3px solid var(--amber);padding-left:20px;max-width:40ch}
+  .hero blockquote cite{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+  h1{font-family:"Newsreader",serif;font-weight:500;font-size:clamp(30px,5.2vw,52px);line-height:1.06;letter-spacing:-.01em;margin:32px 0 20px;max-width:18ch}
+  h1 em{font-style:italic;color:var(--amber)}
+  .hero p{font-size:clamp(15px,2vw,18px);color:var(--ink2);max-width:56ch}
+
+  .sec{padding:48px 0;border-bottom:1px solid var(--line)}
+  .lbl{color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+  .lbl::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2{font-family:"Newsreader",serif;font-weight:500;font-size:clamp(23px,3.4vw,32px);line-height:1.14;margin-bottom:16px;max-width:24ch}
+  h2 em{font-style:italic;color:var(--amber)}
+  .sec>.wrap>p{font-size:16px;color:var(--ink2);max-width:60ch;margin-bottom:14px}
+  .sec p strong{color:var(--ink);font-weight:600}
+
+  .memo{border:1px solid var(--ink);background:#fbf9f3;margin:16px 0;box-shadow:4px 4px 0 rgba(20,19,16,.06)}
+  .memo .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--paper2)}
+  .memo .head .co{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14px;letter-spacing:.02em}
+  .memo .head .co span{color:var(--muted);font-weight:400;font-size:11px;margin-left:8px;text-transform:uppercase;letter-spacing:.06em}
+  .verdict{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+  .verdict.fund{background:#e7f0e9;color:var(--green);border:1px solid #bcd6c2}
+  .memo .body{padding:16px 18px}
+  .row{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:7px 0;border-top:1px dashed var(--line);font-size:13.5px}
+  .row:first-child{border-top:none}
+  .row .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+  .row .v{color:var(--ink2)}
+  .row .v b{color:var(--ink)}
+  .row.risk .v{color:var(--red)}
+  .op{margin-top:12px;border-left:3px solid var(--ink);background:var(--paper2);padding:12px 15px;font-size:13.5px}
+  .op .t{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:5px}
+
+  .callout{background:var(--ink);color:var(--paper);padding:22px 24px;margin:18px 0;font-size:16px;line-height:1.5}
+  .callout b{color:#e8b98a}
+
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line)}
+  @media(max-width:640px){.facts{grid-template-columns:1fr}}
+  .fact{padding:16px 18px;border:.5px solid var(--line);background:#fbf9f3}
+  .fact .v{font-family:"Newsreader",serif;font-size:24px;font-weight:600;line-height:1}
+  .fact .k{font-size:13px;color:var(--ink2);margin-top:6px}
+  .fact .s{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+  .bott{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:720px){.bott{grid-template-columns:1fr}}
+  .task{border:1px solid var(--line);background:#fbf9f3;padding:16px}
+  .task .n{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:9px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+  .task .t{font-weight:600;font-size:14px;margin-bottom:6px}
+  .task p{font-size:12.5px;color:var(--ink2)}
+
+  .demand{background:var(--ink);color:var(--paper);padding:46px 0}
+  .demand .lbl{color:#c99}
+  .demand h2{color:var(--paper)}
+  .demand h2 em{color:#e8b98a}
+  .demand p{color:#cec9bb;font-size:16px;max-width:56ch;margin-bottom:22px}
+  .cta{display:inline-flex;align-items:center;gap:9px;background:var(--amber);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 22px;border-radius:2px;transition:transform .16s,background .16s}
+  .cta:hover{background:#8f4715;transform:translateY(-1px)}
+  .cta.ghost{background:transparent;border:1px solid #4a463c;color:var(--paper);margin-left:10px}
+  .cta.ghost:hover{background:#221f19}
+  @media(max-width:520px){.cta.ghost{margin-left:0;margin-top:10px}}
+
+  footer{padding:26px 0}
+  .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer .mono{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <span class="mono l">Kima · Screening engine · prototype</span>
+    <span class="mono r">Construit le 21.07.2026 · P. Koenig</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <blockquote class="rise" style="animation-delay:.05s">"Forget fundraising, the real challenge is getting organised to tackle the kind of workload that entrepreneurs have to plow through."<cite>Jean de La Rochebrochard, How I Work, 2024</cite></blockquote>
+    <h1 class="rise" style="animation-delay:.14s">Vous avez dit que le vrai défi, c'est le <em>volume</em>. Alors je vous ai construit un levier.</h1>
+    <p class="rise" style="animation-delay:.24s">1 339 boîtes au portefeuille, 500 dossiers par semaine, une équipe de quatre. J'ai monté ce week-end un moteur de pré-screening et je l'ai lâché sur trois de vos levées récentes, sur les seuls fondamentaux, sans lui dire que vous aviez déjà tranché. Il a conclu comme vous.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Sortie du moteur · screening à l'aveugle</div>
+
+    <div class="memo rise" style="animation-delay:.05s">
+      <div class="head"><span class="co">RIVAGE<span>proptech · seed 1,5 M€ · juil. 2026</span></span><span class="verdict fund">Verdict : financer</span></div>
+      <div class="body">
+        <div class="row"><span class="k">Thèse</span><span class="v">Gestion locative automatisée par IA pour agences françaises. Marché admin-lourd, réglementé, ultra-fragmenté : quittances, états des lieux, relances, conformité. Le genre de tâche que les LLM rendent enfin automatisable.</span></div>
+        <div class="row"><span class="k">Équipe</span><span class="v">Chauvin (CEO), Barranco (COO), Prève (CTO).</span></div>
+        <div class="row"><span class="k">Traction</span><span class="v"><b>200 k€ d'ARR</b> quelques mois après le lancement des ventes, cible 5 M€ en 2027, 95 % d'automatisation sur certains workflows. Syndicat d'anges pertinent : Flatlooker, Pennylane.</span></div>
+        <div class="row risk"><span class="k">Risque</span><span class="v">Proptech encombré, et un x25 d'ARR à tenir : le vrai combat est un GTM de terrain auprès d'agences qui changent d'outil lentement, pas une question de produit.</span></div>
+        <div class="op"><div class="t">Note de l'opérateur, hors moteur</div>Je fais tourner un outil IA que j'ai construit sur ma propre foncière de 41 lots. La douleur de Rivage, je la vis de l'intérieur. Ma lecture : le produit n'est pas le risque, l'adoption par des agences frileuses, si. C'est exactement le type de marché où je sais parler à l'acheteur.</div>
+      </div>
+    </div>
+
+    <div class="memo rise" style="animation-delay:.1s">
+      <div class="head"><span class="co">KALIPSO<span>regtech · seed 3,2 M$ · juin 2026</span></span><span class="verdict fund">Verdict : financer</span></div>
+      <div class="body">
+        <div class="row"><span class="k">Thèse</span><span class="v">Traduit les évolutions réglementaires en actions de conformité. 100+ sources, 40+ juridictions, 3 000+ mises à jour par jour. Tailwind réglementaire réel (AI Act et suivants).</span></div>
+        <div class="row"><span class="k">Équipe</span><span class="v"><b>Founder-market fit rare</b> : Ferran (ex-legal Klarna, LL.M. Stanford, background ingénieur), Debernardi (ex-General Counsel). Le combo droit plus ingénierie est exactement ce que ce problème demande.</span></div>
+        <div class="row"><span class="k">Traction</span><span class="v">Logos précoces solides : Caisse des Dépôts, Alma. ISO 27001, cloud souverain européen, angle souveraineté aligné avec le moment.</span></div>
+        <div class="row risk"><span class="k">Risque</span><span class="v">Ventes entreprise à cycle long, catégorie regtech disputée, et "3 000 mises à jour par jour" = risque de faux positifs qui érode la confiance si la qualité de données faiblit.</span></div>
+      </div>
+    </div>
+
+    <div class="memo rise" style="animation-delay:.15s">
+      <div class="head"><span class="co">CORMA<span>saas ops · seed 3,5 M€ · déc. 2025</span></span><span class="verdict fund">Verdict : financer</span></div>
+      <div class="body">
+        <div class="row"><span class="k">Thèse</span><span class="v">Gouvernance des licences logicielles et des accès. Réduit la dépense SaaS de 20 %, automatise les droits d'accès. Douleur universelle du SaaS sprawl, cible mid-market et PME.</span></div>
+        <div class="row"><span class="k">Équipe</span><span class="v">Rozès (CEO), Bismut, Fomm. Société fondée en 2023.</span></div>
+        <div class="row"><span class="k">Traction</span><span class="v"><b>Validation précoce exceptionnelle</b> : plus jeune société retenue au Magic Quadrant Gartner 2026 sur son segment, 4,8/5 satisfaction. Logos : Brevo, Owkin, Skello, Brut.</span></div>
+        <div class="row risk"><span class="k">Risque</span><span class="v">Catégorie compétitive (Zylo, Torii, Vertice) : la différenciation par la gouvernance des accès doit tenir. Segment PME = risque de churn structurel.</span></div>
+      </div>
+    </div>
+
+    <div class="callout rise">Le moteur a screené les trois à l'aveugle et a conclu "financer" sur les trois. <b>Vous aviez investi dans les trois.</b> Ce n'est pas une preuve statistique, c'est un prototype de week-end. Mais imaginez-le affiné sur vos vrais critères, branché sur vos 500 dossiers hebdomadaires.</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Qui a construit ça</div>
+    <h2>Un profil qui vend et qui construit, pas l'un ou l'autre.</h2>
+    <div class="facts">
+      <div class="fact"><div class="v">900 k€</div><div class="k">de transactions immobilières vendues en un mois</div><div class="s">Aguesseau Capital</div></div>
+      <div class="fact"><div class="v">10 en 19 jours</div><div class="k">produits IA livrés sur 9 secteurs</div><div class="s">mission de conseil</div></div>
+      <div class="fact"><div class="v">41 lots</div><div class="k">pilotés par un cockpit IA que j'ai construit, démo publique</div><div class="s">foncière familiale · usage interne</div></div>
+      <div class="fact"><div class="v">600 k€</div><div class="k">de budget administré comme trésorier</div><div class="s">BDE ESSEC</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Comme bras droit · les 90 premiers jours</div>
+    <h2>Trois goulots que j'attaque, tous sur données publiques.</h2>
+    <div class="bott">
+      <div class="task"><div class="n">Goulot 1</div><div class="t">Pré-screening du deal flow</div><p>500 dossiers par semaine, quatre personnes. Le moteur ci-dessus, affiné sur vos critères, retire le temps humain des rejets évidents et remonte les vrais signaux.</p></div>
+      <div class="task"><div class="n">Goulot 2</div><div class="t">Veille du portefeuille</div><p>1 339 boîtes, aucune veille proactive documentée. Un digest hebdo automatique : levées suivantes, presse, signaux LinkedIn de pivot ou de départ. Vous passez du réactif à l'anticipé.</p></div>
+      <div class="task"><div class="n">Goulot 3</div><div class="t">Tri des demandes fondateurs</div><p>Chaque boîte a son adresse dédiée. Un agent qui classe, priorise et pré-rédige les réponses, et qui oriente vers la bonne ressource Kima Forward. La promesse d'aide, tenue à l'échelle.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="demand">
+  <div class="wrap">
+    <div class="mono lbl">La demande</div>
+    <h2>Vous dites que 90 % du temps, <em>20 minutes suffisent</em>. Prenons-en 20.</h2>
+    <p>Je ne veux pas apprendre le deal flow en observant. Je veux construire le levier qui vous rend du temps, en stage conventionné ESSEC, 6 mois, format flexible. Répondez à ce mail, je vous montre le moteur en direct et le prochain goulot que j'attaque.</p>
+    <a class="cta" href="mailto:pierre.koenig@essec.edu?subject=Screening%20engine%20Kima%20%3A%20on%20prend%2020%20minutes%20%3F&body=Pierre%2C%20">Écrire à Pierre</a>
+    <a class="cta ghost" href="./cv.pdf">Le CV, une page</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="mono">Pierre Koenig · ESSEC · Paris</span>
+    <span class="mono">Prototype construit avec de l'IA · sources publiques · 21.07.2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

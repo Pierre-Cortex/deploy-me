@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Le bureau Paris n'a pas encore de bras droit. Note pour l'équipe Harvey.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16130e; --paper:#f2eee4; --paper2:#e8e2d3; --card:#faf7ef;
+    --line:#d6cfbd; --oxblood:#7c2436; --gold:#8a6a1e; --green:#2f6440; --muted:#7b7565;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{max-width:900px;margin:0 auto;padding:0 26px}
+  .mono{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .rise{opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  header{border-bottom:1.5px solid var(--ink);padding:20px 0;background:var(--paper)}
+  .topbar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+  .topbar .l{color:var(--oxblood);font-weight:600}
+  .topbar .r{color:var(--muted)}
+
+  .hero{padding:60px 0 50px;border-bottom:1px solid var(--line)}
+  h1{font-family:"Spectral",serif;font-weight:500;font-size:clamp(31px,5.4vw,54px);line-height:1.05;letter-spacing:-.01em;max-width:17ch}
+  h1 em{font-style:italic;color:var(--oxblood)}
+  .hero .sub{margin-top:24px;font-size:clamp(16px,2.1vw,19px);max-width:56ch;color:#39352c}
+  .hero blockquote{margin-top:30px;font-family:"Spectral",serif;font-style:italic;font-size:19px;line-height:1.35;color:#39352c;border-left:3px solid var(--oxblood);padding-left:18px;max-width:44ch}
+  .hero blockquote cite{display:block;font-style:normal;font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+
+  .sec{padding:50px 0;border-bottom:1px solid var(--line)}
+  .lbl{color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .lbl::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2{font-family:"Spectral",serif;font-weight:500;font-size:clamp(23px,3.5vw,33px);line-height:1.12;margin-bottom:16px;max-width:24ch}
+  h2 em{font-style:italic;color:var(--oxblood)}
+  .sec p{font-size:16px;color:#39352c;max-width:60ch;margin-bottom:14px}
+  .sec p strong{color:var(--ink);font-weight:600}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);margin:8px 0}
+  @media(max-width:720px){.facts{grid-template-columns:1fr 1fr}}
+  .fact{padding:16px 16px;border:.5px solid var(--line);background:var(--card)}
+  .fact .v{font-family:"Spectral",serif;font-weight:600;font-size:19px;line-height:1.1}
+  .fact .k{font-size:12px;color:#39352c;margin-top:6px;line-height:1.4}
+
+  .role{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+  @media(max-width:640px){.role{grid-template-columns:1fr}}
+  .task{border:1px solid var(--line);background:var(--card);padding:18px}
+  .task .n{font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;padding-bottom:9px;border-bottom:1px dashed var(--line)}
+  .task .t{font-weight:600;font-size:15px;margin-bottom:7px;font-family:"Spectral",serif}
+  .task p{font-size:13.5px;color:#39352c;margin:0}
+
+  .edge{background:var(--ink);color:var(--paper);padding:24px;margin:16px 0;border-radius:2px}
+  .edge .h{font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#d8a48f;margin-bottom:10px}
+  .edge p{color:#e6e0d2;font-size:16px;max-width:62ch;margin:0}
+  .edge b{color:#fff}
+
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  @media(max-width:640px){.quotes{grid-template-columns:1fr}}
+  .q{border-left:3px solid var(--gold);padding:6px 0 6px 14px}
+  .q .t{font-family:"Spectral",serif;font-style:italic;font-size:15px;color:#39352c;line-height:1.34}
+  .q .w{font-family:"Spline Sans Mono",monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+  .demand{background:var(--oxblood);color:#f7ebe6;padding:46px 0}
+  .demand .lbl{color:#e6b8ab}
+  .demand h2{color:#fdf6f2}
+  .demand h2 em{color:#f0c9a0;font-style:italic}
+  .demand p{color:#f0dcd4;font-size:16px;max-width:56ch;margin-bottom:22px}
+  .cta{display:inline-flex;align-items:center;gap:9px;background:#f2eee4;color:var(--oxblood);text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:2px;transition:transform .16s}
+  .cta:hover{transform:translateY(-1px)}
+  .cta.ghost{background:transparent;border:1px solid #a86a70;color:#f7ebe6;margin-left:10px;font-weight:600}
+  @media(max-width:520px){.cta.ghost{margin-left:0;margin-top:10px}}
+
+  footer{padding:26px 0}
+  .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer .mono{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <span class="mono l">Harvey · bureau Paris · note</span>
+    <span class="mono r">Pour l'équipe Paris de Harvey · 21.07.2026</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1 class="rise" style="animation-delay:.05s">Le bureau Paris est ouvert. Il n'a pas encore de <em>bras droit</em> sur le terrain.</h1>
+    <p class="sub rise" style="animation-delay:.14s">Ouvert en mai, quinze embauches d'ici septembre, VP EMEA à Londres, aucun Head of France nommé. Vos premiers Account Executives seront des profils enterprise seniors. Il manque, entre eux et vous, quelqu'un qui connaît le marché français, structure les premiers deals et construit les outils que l'équipe utilisera. Je suis ce profil.</p>
+    <blockquote class="rise" style="animation-delay:.24s">"My number one hiring criteria is literally just bias for action."<cite>Winston Weinberg, podcast Sequoia</cite></blockquote>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Le vide · lecture du bureau Paris</div>
+    <h2>Vous avez déjà les clients. Il vous manque le <em>chaînon local</em>.</h2>
+    <p>Bredin Prat, August Debouzy en déploiement sur 150 avocats, CMS Francis Lefebvre, et le partenariat PSG : la France est un des marchés que vous prenez au sérieux. J'ai lu votre board Paris : deux Account Executives pour le Sud de l'Europe (italophone, hispanophone), deux Legal Engineers, un Customer Success, un Recruiting Ops. Des profils seniors, chacun dans son couloir.</p>
+    <p><strong>Aucun ne couvre le marché français des cabinets, ne fait le liant entre eux, ni ne met le bureau en ordre de marche.</strong> Entre le VP EMEA à Londres et ces recrues fonctionnelles, il y a un interstice : le bras droit du terrain France. C'est ce poste-là que je propose, pas l'un des vôtres.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Ce que je ferais · les 90 premiers jours</div>
+    <h2>Quatre choses concrètes, tout de suite.</h2>
+    <div class="role">
+      <div class="task rise" style="animation-delay:.05s"><div class="n">01</div><div class="t">Ouvrir le segment 50-200 avocats</div><p>Le terrain que les AE seniors ne couvriront pas en premier. Qualification, prise de contact, préparation des rendez-vous, dans la langue et les codes des cabinets français.</p></div>
+      <div class="task rise" style="animation-delay:.12s"><div class="n">02</div><div class="t">Structurer les premiers deals</div><p>Suivi pré-signature côté client, business cases, coordination avec les Legal Engineers sur les déploiements. Le travail que personne n'a le temps de faire proprement en phase d'ouverture.</p></div>
+      <div class="task rise" style="animation-delay:.19s"><div class="n">03</div><div class="t">Construire les démos et les outils sales</div><p>Démonstrations sur mesure par cabinet, decks de valeur, petits outils internes. Je construis vite : dix produits IA en dix-neuf jours sur une mission de conseil.</p></div>
+      <div class="task rise" style="animation-delay:.26s"><div class="n">04</div><div class="t">Mettre le bureau en ordre de marche</div><p>Quinze personnes arrivent d'ici septembre sans office lead identifié. Coordination, onboarding, rituels : l'ops que le VP EMEA ne peut pas piloter depuis Londres.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Mon angle · ce que personne d'autre n'apporte</div>
+    <div class="edge">
+      <div class="h">Je connais déjà le terrain adverse</div>
+      <p>J'ai étudié en détail comment Legora attaque le marché français : leur équipe Paris, leur discours souveraineté, leur séquence commerciale. <b>J'arrive en connaissant la stratégie du concurrent que vous affrontez frontalement en France</b>, pas en la découvrant sur place. Ajoutez à ça le monde du deal que je connais du terrain, closing, due diligence, notaires, chez Aguesseau, et vous avez quelqu'un qui parle les deux langues : celle du code et celle des transactions françaises.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Qui a construit ça</div>
+    <h2>Un builder qui vend, pas l'un ou l'autre.</h2>
+    <div class="facts">
+      <div class="fact"><div class="v">900 k€</div><div class="k">de transactions immobilières vendues en un mois (Aguesseau Capital) : le monde du deal, du closing, des notaires</div></div>
+      <div class="fact"><div class="v">10 en 19 jours</div><div class="k">produits IA livrés sur 9 secteurs, en mission de conseil : la vélocité de build</div></div>
+      <div class="fact"><div class="v">41 lots</div><div class="k">pilotés par un outil IA que j'ai construit, démo publique, usage interne</div></div>
+      <div class="fact"><div class="v">600 k€</div><div class="k">de budget administré comme trésorier du BDE ESSEC</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="mono lbl">Pourquoi je pense coller à Harvey</div>
+    <h2>Vos critères, tels que vous les dites vous-même.</h2>
+    <div class="quotes">
+      <div class="q"><div class="t">"My number one hiring criteria is literally just bias for action."</div><div class="w">Weinberg, Sequoia. J'ai construit et envoyé cette page en quelques heures.</div></div>
+      <div class="q"><div class="t">"I do not care about perfection. I care about rate of improvement."</div><div class="w">Weinberg, Fortune, avril 2026.</div></div>
+      <div class="q"><div class="t">"You have to re-earn your role every six months. It includes me, 100%."</div><div class="w">Weinberg, Yahoo Finance, mars 2026.</div></div>
+      <div class="q"><div class="t">"The most valuable feedback comes from the paralegals who spend eight hours a day in it."</div><div class="w">Weinberg. Le terrain avant les partenaires : c'est là que je veux être.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="demand">
+  <div class="wrap">
+    <div class="mono lbl">La demande</div>
+    <h2>20 minutes, et je vous montre le premier cabinet que <em>j'ouvrirais</em>.</h2>
+    <p>Je ne veux pas un titre, je veux rendre le bureau Paris opérationnel. Stage conventionné ESSEC, 6 mois, sur place à Paris, format flexible. Répondez à ce mail : je vous montre ma lecture du marché français et le premier segment que j'attaquerais. Si en 30 jours mesurés je ne vous ai rien apporté, on arrête, sans friction.</p>
+    <a class="cta" href="mailto:pierre.koenig@essec.edu?subject=Bureau%20Paris%20Harvey%20%3A%20on%20prend%2020%20minutes%20%3F&body=Pierre%2C%20">Écrire à Pierre</a>
+    <a class="cta ghost" href="./cv.pdf">Le CV, une page</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="mono">Pierre Koenig · ESSEC · Paris</span>
+    <span class="mono">Construit avec de l'IA · sources publiques · 21.07.2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
